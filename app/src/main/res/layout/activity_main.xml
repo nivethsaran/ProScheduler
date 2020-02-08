@@ -1,18 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/bgColorMain"
+
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainModule.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:rowCount="2"
+            android:layout_gravity="center"
+            android:padding="20sp"
+            android:columnCount="2"
+            android:layout_height="wrap_content">
+            <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center" 
+                android:gravity="center"
+            android:orientation="vertical">
+            <ImageButton
+                android:background="@color/bgColorMain"
+                android:layout_width="wrap_content"
+                android:src="@drawable/calendar"
+                android:id="@+id/calendar_btn"
+                android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </ImageButton>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calendar/Events"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorText">
+                </TextView>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="20sp"
+                android:orientation="vertical">
+                <ImageButton
+                    android:background="@color/bgColorMain"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/alarm"
+                    android:id="@+id/alarm_btn"
+                    android:layout_height="wrap_content">
+
+                </ImageButton>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reminders"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorText">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageButton
+                    android:background="@color/bgColorMain"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/information"
+                    android:id="@+id/profile_btn"
+                    android:layout_height="wrap_content">
+
+                </ImageButton>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Profile Page"
+                    android:textColor="@color/colorText">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageButton
+                    android:background="@color/bgColorMain"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/gear"
+                    android:id="@+id/settings_btn"
+                    android:layout_height="wrap_content">
+
+                </ImageButton>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorText">
+                </TextView>
+                
+            </LinearLayout>
+
+
+
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>

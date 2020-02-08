@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/bgColorMain"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@color/bgColorMain"
+        android:orientation="vertical"
+        tools:context=".LoginModule.LoginActivity">
+        <ImageView
+            android:id="@+id/imageview_logo"
+            android:layout_width="200sp"
+            android:layout_height="100sp"
+            android:layout_margin="20dp"
+            android:padding="20dp"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            app:srcCompat="@drawable/fingerprint" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ProScheduler"
+
+            android:textColor="@color/colorText"
+            android:textSize="40sp"
+            />
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#929aab"
+            android:paddingVertical="20dp"
+            android:layout_marginHorizontal="20sp"
+            android:freezesText="true"
+            android:ems="10"
+            android:hint="Email"
+
+            android:inputType="textEmailAddress">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_email"
+                android:singleLine="true"
+                android:textColor="@color/colorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#929aab"
+            android:paddingVertical="20dp"
+
+            android:layout_marginHorizontal="20sp"
+            android:freezesText="true"
+
+            android:ems="10"
+            android:hint="Password"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_password"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:textColor="@color/colorText"
+                android:inputType="textPassword"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="20sp"
+            android:paddingHorizontal="5sp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/show_password"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show Password"
+                android:layout_weight="1"
+                android:textColor="@color/colorText"
+                android:layout_gravity="start|center_vertical"
+                />
+            <CheckBox
+                android:id="@+id/remember_me"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remember Me"
+
+                android:textColor="@color/colorText"
+                android:layout_gravity="end|center_vertical" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingVertical="20dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/forgot_textview"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="10dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText"
+                android:text="Forgot Password?" />
+            <TextView
+                android:id="@+id/signup_textview"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="10dp"
+                android:layout_weight="0.5"
+                android:textAlignment="gravity"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textColor="@color/colorText"
+                android:text="Contact Support" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="40dp"
+
+            android:textSize="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:shadowRadius="5"
+            android:shadowColor="@color/colorAccent"
+            android:layout_marginVertical="30dp"
+            android:text="LOGIN" />
+
+
+
+    </LinearLayout>
+
+</ScrollView>
