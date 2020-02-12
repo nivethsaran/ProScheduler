@@ -1,4 +1,4 @@
-package com.hexactive.proscheduler.ReminderModule;
+package com.hexactive.proscheduler.MainModule;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,34 +13,34 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hexactive.proscheduler.R;
+import com.hexactive.proscheduler.ReminderModule.ReminderDetails;
 
 import java.util.List;
 
-public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
+public class ImportantReminderAdapter extends RecyclerView.Adapter<ImportantReminderAdapter.ImportantReminderViewHolder> {
 
-List<ReminderDetails> reminderDetails;
-OnItemClickListener listener;
-Context context;
-LayoutInflater inflater;
-    public ReminderAdapter(List<ReminderDetails> reminderDetails, OnItemClickListener listener)
+    List<ReminderDetails> reminderDetails;
+    
+    Context context;
+    LayoutInflater inflater;
+    public ImportantReminderAdapter(List<ReminderDetails> reminderDetails)
     {
         this.reminderDetails=reminderDetails;
-        this.listener=listener;
+        
     }
     @NonNull
     @Override
-    public ReminderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ImportantReminderAdapter.ImportantReminderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context=parent.getContext();
         inflater=LayoutInflater.from(parent.getContext());
         View view=inflater.inflate(R.layout.reminder_list_item,parent,false);
-        ReminderViewHolder holder=new ReminderViewHolder(view);
-
+        ImportantReminderViewHolder holder=new ImportantReminderViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
-        holder.bind(reminderDetails.get(position),listener);
+    public void onBindViewHolder(@NonNull ImportantReminderAdapter.ImportantReminderViewHolder holder, int position) {
+        holder.bind(reminderDetails.get(position));
     }
 
     @Override
@@ -48,11 +48,11 @@ LayoutInflater inflater;
         return reminderDetails.size();
     }
 
-    public class ReminderViewHolder extends RecyclerView.ViewHolder{
+    public class ImportantReminderViewHolder extends RecyclerView.ViewHolder{
 
         TextView date,time,notification,priority,note,title,uid;
 
-        public ReminderViewHolder(@NonNull View itemView) {
+        public ImportantReminderViewHolder(@NonNull View itemView) {
             super(itemView);
             date=itemView.findViewById(R.id.list_date_tv);
             time=itemView.findViewById(R.id.list_time_tv);
@@ -63,7 +63,7 @@ LayoutInflater inflater;
             uid=itemView.findViewById(R.id.list_uid_tv);
         }
 
-        public void bind(final ReminderDetails reminderDetails, final OnItemClickListener listener) {
+        public void bind(ReminderDetails reminderDetails) {
             date.setText(reminderDetails.r_date);
             time.setText(reminderDetails.r_time);
             notification.setText(reminderDetails.notification);
@@ -71,19 +71,10 @@ LayoutInflater inflater;
             title.setText(reminderDetails.title);
             note.setText(reminderDetails.note);
             uid.setText(reminderDetails.uid);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onItemClick(reminderDetails.uid);
-                }
-            });
+
 
         }
 
 
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(String uid);
     }
 }

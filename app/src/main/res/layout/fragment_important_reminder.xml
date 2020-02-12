@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".MainModule.ImportantReminderFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/hello_blank_fragment" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/important_reminder_rv"
+        android:layout_height="match_parent"/>
+
+
 
 </FrameLayout>

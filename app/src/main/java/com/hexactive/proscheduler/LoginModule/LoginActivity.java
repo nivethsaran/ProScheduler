@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    String email=edittext_email.getText().toString()+"@cb.fac.amrita.edu";
+                    String email=edittext_email.getText().toString()+"@cb.students.amrita.edu";
                     mAuth.sendPasswordResetEmail("hmttlp9775@smlmail.com");
                 }
 
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                     dialog.setMessage("Logging in...");
                     dialog.show();
                     String username=edittext_email.getText().toString();
-                    String email=edittext_email.getText().toString()+"@cb.fac.amrita.edu";
+                    String email=edittext_email.getText().toString()+"@cb.students.amrita.edu";
                     String password=edittext_password.getText().toString();
 
 

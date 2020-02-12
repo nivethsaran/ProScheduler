@@ -3,6 +3,7 @@ package com.hexactive.proscheduler.MainModule;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -65,6 +66,10 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
                 startActivity(intent);
             }
         });
+
+        ImportantReminderFragment importantReminderFragment = new ImportantReminderFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.important_reminder_container, importantReminderFragment).commit();
 
     }
 }

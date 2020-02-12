@@ -1,9 +1,20 @@
 package com.hexactive.proscheduler.ReminderModule;
 
 public class ReminderDetails {
-    String uid;
-    String r_date,r_time;
-    String note,title,notification,priority;
+   public String uid;
+   public String r_date,r_time;
+   public String note,title,notification,priority;
+    public ReminderDetails()
+    {
+        this.uid=null;
+        this.r_date=null;
+        this.r_time=null;
+        this.note=null;
+        this.title=null;
+        this.notification=null;
+        this.priority=null;
+    }
+
     ReminderDetails(String uid,String r_date,String r_time,String  note,String title,String notification,String priority)
     {
         this.uid=uid;
