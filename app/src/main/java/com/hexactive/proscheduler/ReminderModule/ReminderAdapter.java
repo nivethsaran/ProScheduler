@@ -1,6 +1,8 @@
 package com.hexactive.proscheduler.ReminderModule;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,10 +27,11 @@ List<ReminderDetails> reminderDetails;
 OnItemClickListener listener;
 Context context;
 LayoutInflater inflater;
-    public ReminderAdapter(List<ReminderDetails> reminderDetails, OnItemClickListener listener)
+    public ReminderAdapter(List<ReminderDetails> reminderDetails, OnItemClickListener listener,Context context)
     {
         this.reminderDetails=reminderDetails;
         this.listener=listener;
+        this.context=context;
     }
     @NonNull
     @Override
@@ -79,7 +82,7 @@ LayoutInflater inflater;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(reminderDetails.uid);
+                    listener.onItemClick(reminderDetails);
                 }
             });
 
@@ -94,6 +97,10 @@ LayoutInflater inflater;
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     Toast.makeText(itemView.getContext(),"Edit"+menuTemp.uid,Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(context,AddEditReminderActivity.class);
+                    intent.putExtra("type","EDIT");
+                    intent.putExtra("data",menuTemp);
+                    context.startActivity(intent);
                     return false;
                 }
             });
@@ -102,6 +109,7 @@ LayoutInflater inflater;
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     Toast.makeText(itemView.getContext(),"Delete"+menuTemp.uid,Toast.LENGTH_SHORT).show();
+                    new DeleteReminderTask().execute();
                     return false;
                 }
             });
@@ -109,6 +117,21 @@ LayoutInflater inflater;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String uid);
+        void onItemClick(ReminderDetails reminderDetails);
+    }
+
+    class DeleteReminderTask extends AsyncTask<Void,Void,Void>
+    {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(context,"Delet command triggered",Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColorMain"
+    tools:context=".ReminderModule.AddEditReminderActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#929aab"
+        android:paddingVertical="20dp"
+        android:layout_marginHorizontal="20sp"
+        android:freezesText="true"
+        android:ems="10"
+        android:hint="Title"
+
+        android:inputType="text">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_title"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#929aab"
+        android:paddingVertical="20dp"
+        android:layout_marginHorizontal="20sp"
+        android:freezesText="true"
+        android:ems="10"
+        android:hint="Note"
+
+        android:inputType="textMultiLine">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_Note"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#929aab"
+        android:ems="10"
+        android:hint="Date"
+        android:focusable="false"
+        android:paddingVertical="20dp"
+        android:layout_marginHorizontal="20sp"
+        android:freezesText="true"
+        android:id="@+id/edittext_date"
+        android:singleLine="true"
+        android:textColor="@color/colorText"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#929aab"
+        android:ems="10"
+        android:hint="Time"
+        android:focusable="false"
+        android:paddingVertical="20dp"
+        android:layout_marginHorizontal="20sp"
+        android:freezesText="true"
+        android:id="@+id/edittext_time"
+        android:singleLine="true"
+        android:textColor="@color/colorText"
+        />
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:background="@color/bgColorMain"
+        android:padding="20sp"
+        android:layout_margin="20sp"
+
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_priority"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_check"
+        android:textColor="@color/colorText"
+        android:text="Check to Enable Notification"/>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:id="@+id/submit_btn"
+        android:text="Add"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/update_btn"
+        android:layout_gravity="right"
+        android:text="Update"/>
+</FrameLayout>
+
+
+</LinearLayout>
+</ScrollView>

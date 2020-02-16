@@ -1,6 +1,8 @@
 package com.hexactive.proscheduler.ReminderModule;
 
-public class ReminderDetails {
+import java.io.Serializable;
+
+public class ReminderDetails implements Serializable {
    public String uid;
    public String r_date,r_time;
    public String note,title,notification,priority;

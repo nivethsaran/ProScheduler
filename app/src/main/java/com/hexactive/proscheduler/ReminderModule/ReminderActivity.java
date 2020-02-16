@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hexactive.proscheduler.LoginModule.LoginActivity;
+import com.hexactive.proscheduler.MainModule.MainActivity;
 import com.hexactive.proscheduler.R;
 
 
@@ -19,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +34,7 @@ ReminderAdapter reminderAdapter;
 
 FirebaseUser currentUser;
 FirebaseAuth mAuth;
-
+FloatingActionButton addReminder;
     @Override
     protected void onStart() {
         super.onStart();
@@ -43,7 +49,20 @@ FirebaseAuth mAuth;
 
         mAuth=FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
+        addReminder=findViewById(R.id.addReminder_Btn);
 
+
+
+
+        addReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ReminderActivity.this, AddEditReminderActivity.class);
+                intent.putExtra("type","ADD");
+
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -109,10 +128,14 @@ FirebaseAuth mAuth;
 
                 reminderAdapter=new ReminderAdapter(list, new ReminderAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(String uid) {
-                        Toast.makeText(getApplicationContext(),uid,Toast.LENGTH_SHORT).show();
+                    public void onItemClick(ReminderDetails reminderDetails) {
+                        Toast.makeText(getApplicationContext(),reminderDetails.title,Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(ReminderActivity.this,AddEditReminderActivity.class);
+                        intent.putExtra("type","VIEW");
+                        intent.putExtra("data",reminderDetails);
+                        startActivity(intent);
                     }
-                });
+                },getApplicationContext());
                 reminder_rv.setAdapter(reminderAdapter);
             }catch (Exception e)
             {
@@ -122,4 +145,6 @@ FirebaseAuth mAuth;
 
         }
     }
+
+
 }
