@@ -3,16 +3,15 @@ package com.hexactive.proscheduler.MainModule;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +34,7 @@ public class ImportantReminderFragment extends Fragment {
 RecyclerView important_reminder_rv;
     ReminderAdapter reminderAdapter;
     FirebaseUser currentUser;
+    ProgressBar progressBar;
     FirebaseAuth mAuth;
     List<ReminderDetails> list;
     public ImportantReminderFragment() {
@@ -48,7 +48,7 @@ RecyclerView important_reminder_rv;
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_important_reminder, container, false);
         important_reminder_rv=view.findViewById(R.id.important_reminder_rv);
-
+        progressBar=view.findViewById(R.id.progressbar);
 
         mAuth=FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
@@ -64,6 +64,13 @@ RecyclerView important_reminder_rv;
 
         ReminderDetails reminderDetails;
         List<ReminderDetails> list;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String doInBackground(Void... voids) {
             String url,json=null;
@@ -117,7 +124,7 @@ RecyclerView important_reminder_rv;
                 e.printStackTrace();
                 Log.d("ImportantReminder",e.getMessage());
             }
-
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 

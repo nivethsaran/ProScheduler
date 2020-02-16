@@ -1,15 +1,12 @@
 package com.hexactive.proscheduler.ReminderModule;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,8 +19,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
+
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hexactive.proscheduler.R;
@@ -44,6 +43,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
     Button button,update;
     CheckBox notification_cb;
     FirebaseUser currentUser;
+    ProgressDialog dialog;
     boolean FLAG=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
         date="";time="";note="";title="";notification="";priority="";uid="";
         button=findViewById(R.id.submit_btn);
         update=findViewById(R.id.update_btn);
-
+        dialog = new ProgressDialog(new ContextThemeWrapper(AddEditReminderActivity.this, R.style.MyProgressDialog));
         Intent intent=getIntent();
         String type=intent.getStringExtra("type");
         if(type.equals("ADD"))
@@ -109,6 +109,12 @@ public class AddEditReminderActivity extends AppCompatActivity {
             priority=intentData.priority;
             button.setEnabled(false);
             update.setEnabled(true);
+            date=intentData.r_date.substring(0,10);
+            time=intentData.r_time.substring(0,5);
+            note=intentData.note.replace('_',' ');
+            title=intentData.title.replace('_',' ');
+            notification=intentData.notification;
+            priority=intentData.priority;
         }
 
         mAuth=FirebaseAuth.getInstance();
@@ -275,6 +281,14 @@ public class AddEditReminderActivity extends AppCompatActivity {
     public class AddReminderTask extends AsyncTask<String,Void,String>
     {
         String URL,resp;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Collecting data from server");
+            dialog.show();
+        }
+
         @Override
         protected String doInBackground(String... strings) {
 
@@ -292,6 +306,9 @@ public class AddEditReminderActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             if(s.equals("Success"))
             {
                 Toast.makeText(getApplicationContext(),"Added Reminder Successfully",Toast.LENGTH_SHORT).show();
@@ -307,6 +324,14 @@ public class AddEditReminderActivity extends AppCompatActivity {
     public class UpdateReminderTask extends AsyncTask<String,Void,String>
     {
         String URL,resp;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Collecting data from server");
+            dialog.show();
+        }
+
         @Override
         protected String doInBackground(String... strings) {
 
@@ -324,6 +349,9 @@ public class AddEditReminderActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             if(s.equals("Success"))
             {
                 Toast.makeText(getApplicationContext(),"Added Reminder Successfully",Toast.LENGTH_SHORT).show();
@@ -332,6 +360,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Server error,try again later",Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 }

@@ -1,44 +1,41 @@
 package com.hexactive.proscheduler.ReminderModule;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.hexactive.proscheduler.LoginModule.LoginActivity;
-import com.hexactive.proscheduler.MainModule.MainActivity;
 import com.hexactive.proscheduler.R;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReminderActivity extends AppCompatActivity {
 RecyclerView reminder_rv;
 ReminderAdapter reminderAdapter;
-
+    ProgressDialog dialog;
 FirebaseUser currentUser;
 FirebaseAuth mAuth;
 FloatingActionButton addReminder;
     @Override
     protected void onStart() {
         super.onStart();
-
+        new ReminderTask().execute();
     }
 
     @Override
@@ -46,6 +43,7 @@ FloatingActionButton addReminder;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
         reminder_rv=findViewById(R.id.reminder_rv);
+        dialog = new ProgressDialog(new ContextThemeWrapper(ReminderActivity.this, R.style.MyProgressDialog));
 
         mAuth=FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
@@ -70,7 +68,7 @@ FloatingActionButton addReminder;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         reminder_rv.setLayoutManager(layoutManager);
 
-        new ReminderTask().execute();
+
         Log.d("Login","https://pro-scheduler-backend.herokuapp.com/getReminderall/uid/" + currentUser.getUid());
     }
 
@@ -79,6 +77,14 @@ FloatingActionButton addReminder;
     {
         ReminderDetails reminderDetails;
         List<ReminderDetails> list;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Collecting data from server");
+            dialog.show();
+        }
+
         @Override
         protected String doInBackground(Void... voids) {
             String url,json=null;
@@ -141,6 +147,9 @@ FloatingActionButton addReminder;
             {
                 e.printStackTrace();
                 Log.d("Login",e.getMessage());
+            }
+            if (dialog.isShowing()) {
+                dialog.dismiss();
             }
 
         }
