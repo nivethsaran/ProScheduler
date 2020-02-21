@@ -203,7 +203,8 @@ public class AddEditReminderActivity extends AppCompatActivity {
 
             }
         });
-        ArrayAdapter<String> priorityAdapter=new ArrayAdapter<String>(getApplicationContext(),R.layout.priority_spinner_item,new String[]{"Low","Medium","High"});
+        ArrayAdapter<String> priorityAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.priority_spinner_item,new String[]{"Priority:Low","Priority:Medium","Priority:High"});
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         priority_spinner.setAdapter(priorityAdapter);
 
         priority_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

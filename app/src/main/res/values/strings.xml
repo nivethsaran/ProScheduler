@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">ProScheduler</string>
+    <string name="show_password">Show Password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="login">Login</string>
+    <string name="change_language">Change Language</string>
+    <string name="calendarevents">Calendar/Events</string>
+    <string name="reminder">Reminder</string>
+    <string name="settings">Settings</string>
+    <string name="profilepage" translatable="false">Profile Page</string>
+    <string name="importantreminders">Today\'s Reminders</string>
+<!--    <string name="show_password">Show Password</string>-->
+<!--    <string name="show_password">Show Password</string>-->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

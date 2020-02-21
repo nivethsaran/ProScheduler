@@ -1,24 +1,26 @@
 package com.hexactive.proscheduler.LoginModule;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ContextThemeWrapper;
-
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,21 +32,28 @@ import com.google.firebase.auth.FirebaseUser;
 import com.hexactive.proscheduler.MainModule.MainActivity;
 import com.hexactive.proscheduler.R;
 
+import java.util.Locale;
+
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private TextInputEditText edittext_email,edittext_password;
     private CheckBox remember_me,show_password;
     private ProgressDialog dialog;
+    private Spinner login_language_spinner;
+    private Locale locale;
+
+    private String language;
     private TextView forgot_textview, contact_textview;
-    private Button login_btn;
+    private Button login_btn,changeLan_btn;
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences sp=getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
+        language=sp.getString("langauge","en");
+        Log.d("Login",language);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        SharedPreferences sp = getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
-
         edittext_email.setText(sp.getString("loginuname",""));
         edittext_password.setText(sp.getString("loginpassword",""));
         remember_me.setChecked(sp.getBoolean("remembermestatus",false));
@@ -59,9 +68,54 @@ public class LoginActivity extends AppCompatActivity {
         edittext_password=findViewById(R.id.edittext_password);
         show_password=findViewById(R.id.show_password);
         remember_me=findViewById(R.id.remember_me);
+        changeLan_btn=findViewById(R.id.change_lan_btn);
         dialog = new ProgressDialog(new ContextThemeWrapper(LoginActivity.this, R.style.MyProgressDialog));
         forgot_textview=findViewById(R.id.forgot_textview);
+        login_language_spinner=findViewById(R.id.spinner_login_language);
+        ArrayAdapter<String> priorityAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.priority_spinner_item,new String[]{"English","Spanish"});
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
+        login_language_spinner.setAdapter(priorityAdapter);
 
+        login_language_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==0)
+                {
+                    language="en";
+                    SharedPreferences preferences = getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("language", "en");
+                    editor.commit();
+                }
+                else if(i==1)
+                {
+                    language="es";
+                    SharedPreferences preferences = getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("language", "es");
+                    editor.commit();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        changeLan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locale = new Locale(language);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                refresh();
+
+            }
+        });
 
         forgot_textview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                Toast.makeText(getApplicationContext(),edittext_email.getText().toString()+" "+edittext_password.getText().toString(),Toast.LENGTH_SHORT ).show();
 
-                if(edittext_email.getText().toString()==null||edittext_password.getText().toString()==null)
+                if(edittext_email.getText().toString().equals("")||edittext_password.getText().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(),"Enter Valid Data",Toast.LENGTH_SHORT).show();
                 }
@@ -158,5 +212,22 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        // refresh your views here
+        Locale.setDefault(locale);
+        config.locale = locale;
+        super.onConfigurationChanged(newConfig);
+
+    }
+
+    private void refresh() {
+        finish();
+        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

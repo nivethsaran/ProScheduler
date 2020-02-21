@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ProScheduler</string>
+    <string name="show_password">Mostrar contraseña</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_language">Cambiar idioma</string>
+    <string name="contact_support">Soporte de contacto</string>
+    <string name="email">Email</string>
+    <string name="forgot_password">Se te olvidó tu contraseña?</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="remember_me">Recuérdame</string>
+    <string name="calendarevents">Calendario / Eventos</string>
+    <string name="importantreminders">Recordatorios de hoy</string>
+    <string name="profilepage" translatable="false">Página de perfil</string>
+    <string name="reminder">Recordatorio</string>
+    <string name="settings">Configuraciones</string>
+</resources>
