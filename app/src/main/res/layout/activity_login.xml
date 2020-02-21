@@ -111,7 +111,7 @@
                 android:textColor="@color/colorText"
                 android:text="@string/forgot_password" />
             <TextView
-                android:id="@+id/signup_textview"
+                android:id="@+id/support_textview"
                 android:layout_width="match_parent"
                 android:paddingHorizontal="10dp"
                 android:layout_weight="0.5"

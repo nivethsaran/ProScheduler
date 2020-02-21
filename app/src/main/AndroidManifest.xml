@@ -9,9 +9,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ReminderModule.AddEditReminderActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".LoginModule.ContactActivity"/>
+        <activity android:name=".ReminderModule.AddEditReminderActivity" />
         <activity android:name=".CalendarModule.CalendarActivity" />
         <activity android:name=".ReminderModule.ReminderActivity" />
         <activity android:name=".ProfileModule.ProfileActivity" />
@@ -24,7 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainModule.MainActivity" />
+        <activity android:name=".MainModule.MainActivity"
+            android:theme="@style/AppThemeToolbar">
+        </activity>
     </application>
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,7 +16,9 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.hexactive.proscheduler.CalendarModule.CalendarActivity;
 import com.hexactive.proscheduler.LoginModule.LoginActivity;
@@ -26,11 +30,13 @@ import com.hexactive.proscheduler.SettingsModule.SettingsActivity;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-CalendarView calendarView;
-Spinner main_lang_spinner;
-String language;
-Button changeLan_btn;
-Locale locale;
+private CalendarView calendarView;
+private Spinner main_lang_spinner;
+private String language;
+private Button changeLan_btn;
+private Fragment mDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
+private Locale locale;
 ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
 
     @Override
@@ -155,4 +161,13 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    
 }

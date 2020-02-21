@@ -63,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        contact_textview=findViewById(R.id.support_textview);
         login_btn=findViewById(R.id.login_button);
         edittext_email=findViewById(R.id.edittext_email);
         edittext_password=findViewById(R.id.edittext_password);
@@ -130,6 +132,14 @@ public class LoginActivity extends AppCompatActivity {
                     mAuth.sendPasswordResetEmail("hmttlp9775@smlmail.com");
                 }
 
+            }
+        });
+
+        contact_textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,ContactActivity.class);
+                startActivity(intent);
             }
         });
 
