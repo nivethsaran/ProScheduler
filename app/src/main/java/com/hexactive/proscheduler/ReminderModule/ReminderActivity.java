@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ ReminderAdapter reminderAdapter;
     ProgressDialog dialog;
 FirebaseUser currentUser;
 FirebaseAuth mAuth;
+SwipeRefreshLayout swipeRefreshLayout;
 FloatingActionButton addReminder;
     @Override
     protected void onStart() {
@@ -43,13 +45,19 @@ FloatingActionButton addReminder;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
         reminder_rv=findViewById(R.id.reminder_rv);
+        swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
         dialog = new ProgressDialog(new ContextThemeWrapper(ReminderActivity.this, R.style.MyProgressDialog));
 
         mAuth=FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
         addReminder=findViewById(R.id.addReminder_Btn);
 
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new ReminderTask().execute();
+            }
+        });
 
 
         addReminder.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +150,9 @@ FloatingActionButton addReminder;
                         startActivity(intent);
                     }
                 },getApplicationContext());
+
+
+
                 reminder_rv.setAdapter(reminderAdapter);
             }catch (Exception e)
             {
@@ -151,7 +162,7 @@ FloatingActionButton addReminder;
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 

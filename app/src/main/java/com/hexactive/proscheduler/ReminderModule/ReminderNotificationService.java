@@ -1,0 +1,143 @@
+package com.hexactive.proscheduler.ReminderModule;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.IBinder;
+import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
+
+import com.hexactive.proscheduler.MainModule.MainActivity;
+import com.hexactive.proscheduler.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
+public class ReminderNotificationService extends Service {
+    String title,uid,date,time,note,priority,notification,rid;
+    public ReminderNotificationService() {
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("Alarm",intent.getStringExtra("title"));
+        title=intent.getStringExtra("title");
+        uid=intent.getStringExtra("uid");
+        date=intent.getStringExtra("date");
+        time=intent.getStringExtra("time");
+        note=intent.getStringExtra("note");
+        priority=intent.getStringExtra("priority");
+        notification=intent.getStringExtra("notification");
+        rid=intent.getStringExtra("rid");
+        new NotificationTask().execute(title,uid,date,time,note,priority,notification,rid);
+        return super.onStartCommand(intent, flags, startId);
+
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+
+
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+
+    public class NotificationTask extends AsyncTask<String,Void,String>
+    {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String approval="false";
+            try{
+                String resp = Jsoup.connect("https://pro-scheduler-backend.herokuapp.com/getReminderCheck/rid/"+strings[7]).ignoreContentType(true).execute().body();
+                Log.d("Alarm",resp);
+                try{
+//                JSONObject data=new JSONObject(json);
+                    JSONArray dataArray=new JSONArray(resp);
+                    if(dataArray.length()==1)
+                    {
+                        JSONObject temp=dataArray.getJSONObject(0);
+                        String tempDate=temp.getString("r_date").substring(0,10);
+                        String tempTime=temp.getString("r_time");
+                        if(strings[2].equals(tempDate)&&(strings[3]+":00").equals(tempTime))
+                        {
+                            Log.d("Alarm",resp+"Yeahmaaannn");
+                            approval="true";
+                        }
+                    }
+
+
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    Log.d("Login",e.getMessage());
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.e("Error",e.toString());
+            }
+            return approval;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.equals("true"))
+            {
+                Log.d("Alarm","Notification Will come");
+
+                NotificationManager mNotificationManager;
+
+                NotificationCompat.Builder builder =
+                        new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+                Intent ii = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
+
+                NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+                bigText.bigText("Something fancy");
+                bigText.setBigContentTitle("Today's Bible Verse");
+                bigText.setSummaryText("Text in detail");
+
+                builder.setContentIntent(pendingIntent);
+                builder.setSmallIcon(R.mipmap.ic_launcher_round);
+                builder.setContentTitle("Your Title");
+                builder.setContentText("Your text");
+                builder.setPriority(Notification.PRIORITY_MAX);
+                builder.setStyle(bigText);
+
+                mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                {
+                    String channelId = "Your_channel_id";
+                    NotificationChannel channel = new NotificationChannel(
+                            channelId,
+                            "Channel human readable title",
+                            NotificationManager.IMPORTANCE_HIGH);
+                    mNotificationManager.createNotificationChannel(channel);
+                    builder.setChannelId(channelId);
+                }
+                // Will display the notification in the notification bar
+                mNotificationManager.notify(1, builder.build());
+
+            }
+        }
+    }
+}

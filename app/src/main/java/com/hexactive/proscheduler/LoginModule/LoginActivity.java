@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         SharedPreferences sp=getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
         language=sp.getString("langauge","en");
         Log.d("Login",language);
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

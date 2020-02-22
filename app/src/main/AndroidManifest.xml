@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginModule.ContactActivity"/>
+        <activity android:name=".LoginModule.ContactActivity" />
+
         <activity android:name=".ReminderModule.AddEditReminderActivity" />
         <activity android:name=".CalendarModule.CalendarActivity" />
         <activity android:name=".ReminderModule.ReminderActivity" />
@@ -25,9 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainModule.MainActivity"
-            android:theme="@style/AppThemeToolbar">
-        </activity>
+        <activity
+            android:name=".MainModule.MainActivity"
+            android:theme="@style/AppThemeToolbar" />
+        <service
+            android:name=".ReminderModule.ReminderNotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 

@@ -7,19 +7,25 @@
     android:background="@color/bgColorMain"
     android:layout_height="match_parent"
     tools:context=".ReminderModule.ReminderActivity">
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:id="@+id/reminder_rv"
-    android:layout_height="wrap_content"
-    />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addReminder_Btn"
-        android:layout_margin="24sp"
-        android:elevation="3sp"
-        android:outlineSpotShadowColor="@color/colorText"
-        android:layout_gravity="right|bottom"
-        app:srcCompat="@drawable/add"
-        />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/reminder_rv"
+            android:layout_height="wrap_content"
+            />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addReminder_Btn"
+            android:layout_margin="24sp"
+            android:elevation="3sp"
+            android:outlineSpotShadowColor="@color/colorText"
+            android:layout_gravity="right|bottom"
+            app:srcCompat="@drawable/add"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </FrameLayout>

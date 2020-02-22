@@ -1,6 +1,8 @@
 package com.hexactive.proscheduler.ReminderModule;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -29,12 +31,15 @@ import com.hexactive.proscheduler.R;
 
 import org.jsoup.Jsoup;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class AddEditReminderActivity extends AppCompatActivity {
     EditText date_et,time_et;
     TextInputEditText title_et,note_et;
-    String date,time,title,note,notification="0",priority="L",uid;
+    String date,time,title,note,notification="0",priority="L",uid,rid="";
     private int mYear, mMonth, mDay, mHour, mMinute;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
@@ -42,6 +47,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     Button button,update;
     CheckBox notification_cb;
+    Calendar reminderNotification;
     FirebaseUser currentUser;
     ProgressDialog dialog;
     boolean FLAG=false;
@@ -59,8 +65,10 @@ public class AddEditReminderActivity extends AppCompatActivity {
         date="";time="";note="";title="";notification="";priority="";uid="";
         button=findViewById(R.id.submit_btn);
         update=findViewById(R.id.update_btn);
+        reminderNotification=Calendar.getInstance();
+
         dialog = new ProgressDialog(new ContextThemeWrapper(AddEditReminderActivity.this, R.style.MyProgressDialog));
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         String type=intent.getStringExtra("type");
         if(type.equals("ADD"))
         {
@@ -114,6 +122,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
             note=intentData.note.replace('_',' ');
             title=intentData.title.replace('_',' ');
             notification=intentData.notification;
+            rid=intentData.rid;
             priority=intentData.priority;
         }
 
@@ -157,8 +166,30 @@ public class AddEditReminderActivity extends AppCompatActivity {
                 title=title_et.getText().toString();
                 if(!(note.equals("")||priority.equals("")||date.equals("")||time.equals("")||notification.equals("")||title.equals("")||uid.equals("")))
                 {
-                    String url="http://pro-scheduler-backend.herokuapp.com/insertReminder/date/"+date+"/time/"+time+"/uid/"+uid+"/note/"+note.replace(' ','_')+"/title/"+title.replace(' ','_')+"/notify/"+notification+"/pri/"+priority;
+                    rid=uid+System.currentTimeMillis();
+                    String url="http://pro-scheduler-backend.herokuapp.com/insertReminder/date/"+date+"/time/"+time+"/uid/"+uid+"/note/"+note.replace(' ','_')+"/title/"+title.replace(' ','_')+"/notify/"+notification+"/pri/"+priority+"/rid/"+rid;
                     Log.d("URL",url);
+
+                    String myDate = date+" "+time+":00";
+                    LocalDateTime localDateTime = LocalDateTime.parse(myDate,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") );
+                    long millis = localDateTime
+                            .atZone(ZoneId.systemDefault())
+                            .toInstant().toEpochMilli();
+
+                    Intent myIntent = new Intent(AddEditReminderActivity.this , ReminderNotificationService.class);
+                    myIntent.putExtra("title",title);
+                    myIntent.putExtra("uid",uid);
+                    myIntent.putExtra("date",date);
+                    myIntent.putExtra("time",time);
+                    myIntent.putExtra("notification",notification);
+                    myIntent.putExtra("note",note);
+                    myIntent.putExtra("priority",priority);
+                    myIntent.putExtra("rid",rid);
+                    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                    PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP,millis,pendingIntent);
+
                     new AddReminderTask().execute(url);
                 }
                 else{
@@ -193,7 +224,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
                 title=title_et.getText().toString();
                 if(!(note.equals("")||priority.equals("")||date.equals("")||time.equals("")||notification.equals("")||title.equals("")||uid.equals("")))
                 {
-                    String url="http://pro-scheduler-backend.herokuapp.com/updateReminder/date/"+date+"/time/"+time+"/uid/"+uid+"/note/"+note.replace(' ','_')+"/title/"+title.replace(' ','_')+"/notify/"+notification+"/pri/"+priority;
+                    String url="http://pro-scheduler-backend.herokuapp.com/updateReminder/date/"+date+"/time/"+time+"/uid/"+uid+"/note/"+note.replace(' ','_')+"/title/"+title.replace(' ','_')+"/notify/"+notification+"/pri/"+priority+"/rid/"+rid;
                     Log.d("URL",url);
                     new UpdateReminderTask().execute(url);
                 }
@@ -246,7 +277,15 @@ public class AddEditReminderActivity extends AppCompatActivity {
                 datePickerDialog =new DatePickerDialog(AddEditReminderActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        date=i+"-"+(i1+1)+"-"+i2;
+                        if((i1+1)<10)
+                        {
+                            date=i+"-0"+(i1+1)+"-"+i2;
+                        }
+                        else
+                        {
+                            date=i+"-"+(i1+1)+"-"+i2;
+                        }
+
                         date_et.setText(date);
                     }
                 },mYear,mMonth,mDay);
@@ -264,6 +303,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
                         {
                             time=i+":"+i1;
                             time_et.setText(time);
+
                         }
                         else
                         {
@@ -299,7 +339,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
             }
             catch (Exception e)
             {
-                Log.d("Error",e.getMessage());
+                Log.d("Error","Error");
             }
             return resp;
         }

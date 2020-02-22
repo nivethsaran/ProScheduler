@@ -4,12 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hexactive.proscheduler.R;
@@ -61,9 +58,10 @@ public class ImportantReminderAdapter extends RecyclerView.Adapter<ImportantRemi
             note=itemView.findViewById(R.id.list_note_tv);
             title=itemView.findViewById(R.id.list_title_tv);
             uid=itemView.findViewById(R.id.list_uid_tv);
+
         }
 
-        public void bind(ReminderDetails reminderDetails) {
+        public void bind(final ReminderDetails reminderDetails) {
             date.setText(reminderDetails.r_date);
             time.setText(reminderDetails.r_time);
             notification.setText(reminderDetails.notification);
@@ -71,7 +69,38 @@ public class ImportantReminderAdapter extends RecyclerView.Adapter<ImportantRemi
             title.setText(reminderDetails.title);
             note.setText(reminderDetails.note);
             uid.setText(reminderDetails.uid);
-
+//            itemView.setOnTouchListener(new OnSwipeTouchListener(context) {
+//                @Override
+//                public void onSwipeLeft() {
+//                    // Whatever
+//                    super.onSwipeLeft();
+//                    Log.d("Reminder",reminderDetails.rid);
+//                    new AlertDialog.Builder(context)
+//                            .setTitle("Title")
+//                            .setMessage("Do you really want to whatever?")
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                    Log.d("Reminder","Something");
+//                                }})
+//                            .setNegativeButton(android.R.string.no, null).show();
+//                }
+//
+//                @Override
+//                public void onSwipeRight() {
+//                    super.onSwipeRight();
+//                    Log.d("Reminder",reminderDetails.rid);
+//                    new AlertDialog.Builder(context)
+//                            .setTitle("Title")
+//                            .setMessage("Do you really want to whatever?")
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                    Log.d("Reminder","Something");
+//                                }})
+//                            .setNegativeButton(android.R.string.no, null).show();
+//                }
+//            });
 
         }
 

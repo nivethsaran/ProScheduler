@@ -50,11 +50,14 @@ RecyclerView important_reminder_rv;
         important_reminder_rv=view.findViewById(R.id.important_reminder_rv);
         progressBar=view.findViewById(R.id.progressbar);
 
+
         mAuth=FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         important_reminder_rv.setLayoutManager(layoutManager);
         new ImportantReminderTask().execute();
+
+
         return view;
     }
 
@@ -81,7 +84,7 @@ RecyclerView important_reminder_rv;
                     url = "https://pro-scheduler-backend.herokuapp.com/getRemindertoday/uid/" + currentUser.getUid();
                     Log.d("ImportantReminder","URL:"+url);
                     json = Jsoup.connect(url).ignoreContentType(true).execute().body();
-                    Log.d("ImportantReminder","JSON:"+json);
+//                    Log.d("ImportantReminder","JSON:"+json);
                 }
                 catch (Exception e)
                 {
@@ -115,10 +118,12 @@ RecyclerView important_reminder_rv;
                     reminderDetails.r_time=temp.getString("r_time");
                     reminderDetails.uid=temp.getString("uid");
                     reminderDetails.title=temp.getString("title");
+                    reminderDetails.rid=temp.getString("rid");
                     list.add(reminderDetails);
                 }
                 ImportantReminderAdapter reminderAdapter=new ImportantReminderAdapter(list);
                 important_reminder_rv.setAdapter(reminderAdapter);
+
             }catch (Exception e)
             {
                 e.printStackTrace();

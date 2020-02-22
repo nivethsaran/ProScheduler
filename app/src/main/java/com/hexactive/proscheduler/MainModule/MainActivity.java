@@ -58,6 +58,7 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         main_lang_spinner=findViewById(R.id.spinner_login_language);
         changeLan_btn=findViewById(R.id.change_lan_btn);
 
+
         ArrayAdapter<String> priorityAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.priority_spinner_item,new String[]{"English","Spanish"});
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);
         main_lang_spinner.setAdapter(priorityAdapter);

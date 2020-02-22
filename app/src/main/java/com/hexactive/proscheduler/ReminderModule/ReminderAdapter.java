@@ -9,12 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hexactive.proscheduler.R;
@@ -57,6 +55,8 @@ LayoutInflater inflater;
     public class ReminderViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         ReminderDetails menuTemp;
         TextView date,time,notification,priority,note,title,uid;
+        private float x1,x2;
+        static final int MIN_DISTANCE = 150;
 
         public ReminderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,10 +79,13 @@ LayoutInflater inflater;
             note.setText(reminderDetails.note);
             uid.setText(reminderDetails.uid);
             menuTemp=reminderDetails;
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClick(reminderDetails);
+
                 }
             });
 
