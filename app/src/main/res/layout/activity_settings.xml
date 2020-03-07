@@ -4,15 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColorMain"
+    android:orientation="vertical"
     android:id="@+id/settingsactivity"
     tools:context=".SettingsModule.SettingsActivity">
 
 
-    <TextView
+    <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:gravity="center"
-        android:text="Under development, will be available shortly"
-        android:textColor="@color/colorText"/>
+        android:layout_margin="15sp"
+        android:id="@+id/rememberpass"
+        android:textColor="@color/colorText"
+        android:textSize="20sp"
+        android:text="Remember Password"/>
+
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15sp"
+        android:textColor="@color/colorText"
+        android:id="@+id/automaticlogin"
+        android:textSize="20sp"
+        android:text="Enable Automatic Login"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15sp"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/colorText"
+        android:text="Change Password"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click Here"
+        android:layout_weight="1"
+        android:textColor="@color/colorAccent"
+        android:background="@color/bgColorMain"/>
+</LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check for Updates"
+        android:layout_marginBottom="10sp"
+        android:id="@+id/updatecheck_btn"
+        android:textColor="@color/bgColorMain"
+        android:background="@color/colorAccent"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/logout_btn"
+        android:textColor="@color/bgColorMain"
+        android:background="@color/colorAccent"/>
 </LinearLayout>

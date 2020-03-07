@@ -1,12 +1,12 @@
 package com.hexactive.proscheduler.ProfileModule;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -51,7 +51,8 @@ ProgressDialog dialog;
         edit_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Yet to be implemented",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(ProfileActivity.this,EditProfileActivity.class);
+                startActivity(intent);
             }
         });
 

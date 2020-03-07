@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hexactive.proscheduler.R;
@@ -65,6 +66,23 @@ public class ImportantReminderAdapter extends RecyclerView.Adapter<ImportantRemi
             date.setText(reminderDetails.r_date);
             time.setText(reminderDetails.r_time);
             notification.setText(reminderDetails.notification);
+            if(reminderDetails.priority.equals("H"))
+            {
+                priority.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
+            }
+            else if(reminderDetails.priority.equals("M"))
+            {
+                priority.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow));
+//                priority.setTextColor(ContextCompat.getColor(context, R.color.yellow));
+            }
+            else if(reminderDetails.priority.equals("L"))
+            {
+
+                priority.setBackgroundColor(ContextCompat.getColor(context, R.color.green));
+//                priority.setTextColor(ContextCompat.getColor(context, R.color.green));
+            }
+            priority.setTextColor(ContextCompat.getColor(context, R.color.bgColorMain));
+
             priority.setText(reminderDetails.priority);
             title.setText(reminderDetails.title);
             note.setText(reminderDetails.note);

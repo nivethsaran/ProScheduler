@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgColorMain"
+    android:theme="@style/AppThemeToolbar"
+    android:layout_height="match_parent"
+    tools:context=".ProfileModule.EditProfileActivity">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="5sp"
+    android:layout_marginVertical="5sp"
+    android:text="First Name"
+    android:labelFor="@+id/fname_tv"
+    android:textColor="@color/colorAccent"/>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="5sp"
+    android:layout_marginVertical="5sp"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/fname_tv"
+        android:textColorHighlight="@color/colorAccent"
+        android:enabled="false"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_height="wrap_content">
+    </EditText>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_gravity="right"
+        android:id="@+id/fname_iv"
+        android:src="@drawable/editbig"
+        android:layout_height="wrap_content">
+
+    </ImageView>
+</FrameLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:text="Last Name"
+        android:labelFor="@+id/lname_tv"
+        android:textColor="@color/colorAccent"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/lname_tv"
+            android:textColorHighlight="@color/colorAccent"
+            android:enabled="false"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/lname_iv"
+            android:src="@drawable/editbig"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:text="Designation"
+        android:labelFor="@+id/design_tv"
+        android:textColor="@color/colorAccent"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/design_tv"
+            android:textColorHighlight="@color/colorAccent"
+            android:enabled="false"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/design_iv"
+            android:src="@drawable/editbig"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+    </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:text="Email"
+        android:labelFor="@+id/email_tv"
+        android:textColor="@color/colorAccent"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/email_tv"
+            android:textColorHighlight="@color/colorAccent"
+            android:enabled="false"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/email_iv"
+            android:src="@drawable/editbig"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+    </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:text="Mobile"
+        android:labelFor="@+id/mobile_tv"
+        android:textColor="@color/colorAccent"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginVertical="5sp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/mobile_tv"
+            android:textColorHighlight="@color/colorAccent"
+            android:enabled="false"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/mobile_iv"
+            android:src="@drawable/editbig"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

@@ -41,6 +41,11 @@ RecyclerView important_reminder_rv;
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +59,7 @@ RecyclerView important_reminder_rv;
         mAuth=FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
         important_reminder_rv.setLayoutManager(layoutManager);
         new ImportantReminderTask().execute();
 

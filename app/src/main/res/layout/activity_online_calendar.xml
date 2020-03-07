@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/bgColorMain"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".CalendarModule.OnlineCalendarActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/microsoft"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:text="Microsoft"
+            android:layout_margin="10sp"
+            android:background="@color/colorAccent"
+            android:layout_height="wrap_content">
+
+        </Button>
+
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/google"
+            android:layout_weight="1"
+            android:layout_margin="10sp"
+            android:text="Google"
+            android:textColor="#000"
+            android:background="@color/colorAccent"
+            android:layout_height="wrap_content">
+
+        </Button>
+    </LinearLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview"
+        />
+</LinearLayout>

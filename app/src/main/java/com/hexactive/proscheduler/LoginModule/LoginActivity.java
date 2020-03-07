@@ -1,5 +1,7 @@
 package com.hexactive.proscheduler.LoginModule;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -42,19 +44,39 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private Spinner login_language_spinner;
     private Locale locale;
-
+    private Boolean automaticLogin;
     private String language;
     private TextView forgot_textview, contact_textview;
     private Button login_btn,changeLan_btn;
+    int count=0;
+    boolean allow=false;
     @Override
     protected void onStart() {
         super.onStart();
 
         SharedPreferences sp=getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
         language=sp.getString("langauge","en");
+
+        allow=sp.getBoolean("allow",true);
+        if(allow)
+            login_btn.setEnabled(true);
+        else
+            login_btn.setEnabled(false);
+        automaticLogin=sp.getBoolean("automatic",false);
+        count=sp.getInt("count",0);
         Log.d("Login",language);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        if(automaticLogin)
+        {
+            if(currentUser!=null)
+            {
+                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+        }
         edittext_email.setText(sp.getString("loginuname",""));
         edittext_password.setText(sp.getString("loginpassword",""));
         remember_me.setChecked(sp.getBoolean("remembermestatus",false));
@@ -62,9 +84,11 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+//        setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         contact_textview=findViewById(R.id.support_textview);
         login_btn=findViewById(R.id.login_button);
@@ -211,10 +235,25 @@ public class LoginActivity extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d("Login","Failed Login");
                             if (dialog.isShowing()) {
                                 dialog.dismiss();
                             }
+                            SharedPreferences sp = getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edit = sp.edit();
+                            if(e.getLocalizedMessage().equals("The password is invalid or the user does not have a password."))
+                            edit.putInt("count",sp.getInt("count",0)+1);
+
+                            if(sp.getInt("count",0)>3)
+                            {
+                                edit.putBoolean("allow",false);
+                                Intent myIntent = new Intent(LoginActivity.this , LockService.class);
+                                AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                                PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
+                                alarmManager.setExact(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+180000,pendingIntent);
+                                login_btn.setEnabled(false);
+                            }
+                            edit.commit();
+                            Toast.makeText(getApplicationContext(),e.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
 //                    if (dialog.isShowing()) {

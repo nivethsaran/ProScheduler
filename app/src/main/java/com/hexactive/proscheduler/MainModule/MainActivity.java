@@ -1,12 +1,15 @@
 package com.hexactive.proscheduler.MainModule;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,12 +17,16 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hexactive.proscheduler.CalendarModule.CalendarActivity;
 import com.hexactive.proscheduler.LoginModule.LoginActivity;
 import com.hexactive.proscheduler.ProfileModule.ProfileActivity;
@@ -35,8 +42,12 @@ private Spinner main_lang_spinner;
 private String language;
 private Button changeLan_btn;
 private Fragment mDrawer;
+    boolean doubleBackToExitPressedOnce = false;
+    ImportantReminderFragment importantReminderFragment;
     private ActionBarDrawerToggle mDrawerToggle;
 private Locale locale;
+FirebaseAuth firebaseAuth;
+FirebaseUser firebaseUser;
 ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
 
     @Override
@@ -44,10 +55,16 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         super.onStart();
         SharedPreferences sp=getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
         language=sp.getString("langauge","en");
+        firebaseAuth=FirebaseAuth.getInstance();
+        importantReminderFragment = new ImportantReminderFragment();
+        getSupportFragmentManager().beginTransaction().detach(importantReminderFragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.important_reminder_container, importantReminderFragment).commit();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -57,6 +74,7 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         profile_btn=findViewById(R.id.profile_btn);
         main_lang_spinner=findViewById(R.id.spinner_login_language);
         changeLan_btn=findViewById(R.id.change_lan_btn);
+
 
 
         ArrayAdapter<String> priorityAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.priority_spinner_item,new String[]{"English","Spanish"});
@@ -139,9 +157,8 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
             }
         });
 
-        ImportantReminderFragment importantReminderFragment = new ImportantReminderFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.important_reminder_container, importantReminderFragment).commit();
+
+
 
     }
 
@@ -170,5 +187,49 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         return true;
     }
 
-    
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.logout)
+        {
+            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Do you really want to logout?").setTitle("Logout");
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    firebaseAuth.signOut();
+                    Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            })
+            .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            }).setCancelable(true);
+            builder.show();
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 }

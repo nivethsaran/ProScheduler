@@ -299,17 +299,31 @@ public class AddEditReminderActivity extends AppCompatActivity {
                 timePickerDialog= new TimePickerDialog(AddEditReminderActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        String temph,tempm;
                         if(i1>=10)
                         {
-                            time=i+":"+i1;
-                            time_et.setText(time);
+                            tempm=""+i1;
+//                            time_et.setText(time);
 
                         }
                         else
                         {
-                            time=i+":0"+i1;
-                            time_et.setText(time);
+                            tempm="0"+i1;
+//                            time_et.setText(time);
                         }
+
+                        if(i<10)
+                        {
+                            temph="0"+i;
+//                            time_et.setText(time);
+                        }
+                        else
+                        {
+                            temph=""+i;
+//                            time_et.setText(time);
+                        }
+                        time=temph+":"+tempm;
+                        time_et.setText(time);
 
                     }
                 },mHour,mMinute,true);

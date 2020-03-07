@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
-        android:background="@color/bgColorMain"
+        android:background="@color/colorPrimaryDark"
         android:id="@+id/mainactivity"
 
         android:layout_height="match_parent"
@@ -117,20 +117,27 @@
             <!--        android:layout_margin="20sp"-->
             <!--        android:padding="20sp"-->
             <!--        android:layout_height="wrap_content">-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorText"
-                android:text="@string/importantreminders"
-                android:gravity="center"
-                android:textSize="20sp"/>
 
-                <FrameLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20sp"
-                    android:padding="20sp"
-                    android:id="@+id/important_reminder_container"/>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorText"
+                    android:text="@string/importantreminders"
+                    android:textSize="20sp"/>
+
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:padding="20sp"
+                android:id="@+id/important_reminder_container"/>
+
+
 
 
             <!--    </ScrollView>-->

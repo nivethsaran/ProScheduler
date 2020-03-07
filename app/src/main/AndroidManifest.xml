@@ -11,10 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginModule.ContactActivity" />
+        <activity android:name=".CalendarModule.OnlineCalendarActivity" />
 
+        <activity android:name="$ProfileModule.EditProfileActivity" />
+        <activity android:name=".LoginModule.ContactActivity" />
         <activity android:name=".ReminderModule.AddEditReminderActivity" />
-        <activity android:name=".CalendarModule.CalendarActivity" />
+        <activity
+            android:name=".CalendarModule.CalendarActivity"
+            android:theme="@style/AppThemeToolbar" />
         <activity android:name=".ReminderModule.ReminderActivity" />
         <activity android:name=".ProfileModule.ProfileActivity" />
         <activity android:name=".SettingsModule.SettingsActivity" />
@@ -29,10 +33,29 @@
         <activity
             android:name=".MainModule.MainActivity"
             android:theme="@style/AppThemeToolbar" />
+        <receiver android:name=".WidgetModule.TodaysReminderWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/todays_reminder_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".WidgetModule.ListViewWidgetService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".LoginModule.LockService"
+            android:enabled="true"
+            android:exported="true" />
         <service
             android:name=".ReminderModule.ReminderNotificationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 

@@ -2,19 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/bgColorMain"
     android:id="@+id/calendaractivity"
     tools:context=".CalendarModule.CalendarActivity">
-
-<CalendarView
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_margin="50sp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_width="wrap_content"
+        android:text="Zoom In"
+        android:id="@+id/zoomin"
+        android:layout_height="wrap_content">
+    </Button>
+    <Button
+        android:layout_width="wrap_content"
+        android:text="Zoom Out"
+        android:id="@+id/zoomout"
+        android:layout_height="wrap_content">
+    </Button>
+</LinearLayout>
+<CalendarView
+    android:layout_width="wrap_content"
+    android:layout_marginHorizontal="50sp"
     android:id="@+id/calendar"
     android:layout_gravity="center_horizontal"
     android:background="@color/colorTextHint"
     android:layout_height="wrap_content">
-
 </CalendarView>
-
 </LinearLayout>

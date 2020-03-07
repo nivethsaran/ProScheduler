@@ -16,6 +16,7 @@ ImageView phone,email;
 TextView phonet,emailt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 

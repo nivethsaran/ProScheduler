@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
@@ -87,6 +88,10 @@ public class ReminderNotificationService extends Service {
                     e.printStackTrace();
                     Log.d("Login",e.getMessage());
                 }
+                if(approval.equals("true"))
+                {
+
+                }
 
             }
             catch (Exception e)
@@ -119,6 +124,7 @@ public class ReminderNotificationService extends Service {
                 builder.setSmallIcon(R.mipmap.ic_launcher_round);
                 builder.setContentTitle("Your Title");
                 builder.setContentText("Your text");
+
                 builder.setPriority(Notification.PRIORITY_MAX);
                 builder.setStyle(bigText);
 
@@ -136,6 +142,9 @@ public class ReminderNotificationService extends Service {
                 }
                 // Will display the notification in the notification bar
                 mNotificationManager.notify(1, builder.build());
+                MediaPlayer mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.beep);
+                mediaPlayer.start();
+
 
             }
         }
