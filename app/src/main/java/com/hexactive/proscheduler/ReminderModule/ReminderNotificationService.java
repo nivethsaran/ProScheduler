@@ -35,8 +35,8 @@ public class ReminderNotificationService extends Service {
         date=intent.getStringExtra("date");
         time=intent.getStringExtra("time");
         note=intent.getStringExtra("note");
-        priority=intent.getStringExtra("priority");
-        notification=intent.getStringExtra("notification");
+        priority=intent.getStringExtra("pri");
+        notification=intent.getStringExtra("noti");
         rid=intent.getStringExtra("rid");
         new NotificationTask().execute(title,uid,date,time,note,priority,notification,rid);
         return super.onStartCommand(intent, flags, startId);
@@ -73,8 +73,8 @@ public class ReminderNotificationService extends Service {
                     if(dataArray.length()==1)
                     {
                         JSONObject temp=dataArray.getJSONObject(0);
-                        String tempDate=temp.getString("r_date").substring(0,10);
-                        String tempTime=temp.getString("r_time");
+                        String tempDate=temp.getString("date").substring(0,10);
+                        String tempTime=temp.getString("time");
                         if(strings[2].equals(tempDate)&&(strings[3]+":00").equals(tempTime))
                         {
                             Log.d("Alarm",resp+"Yeahmaaannn");
@@ -82,6 +82,14 @@ public class ReminderNotificationService extends Service {
                         }
                     }
 
+                    String url="http://pro-scheduler-backend.herokuapp.com/deleteReminder/uid/"+strings[1]+"/rid/"+strings[7];
+                    try{
+                        String resp1 = Jsoup.connect(url).ignoreContentType(true).execute().body();
+                    }
+                    catch (Exception e)
+                    {
+                        Log.d("Error","Error");
+                    }
 
                 }catch (Exception e)
                 {

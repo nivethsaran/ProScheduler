@@ -52,7 +52,7 @@ EditText startdate_ed,enddate_ed;
 Button query_rem_btn;
 String tempUrl="",sortbyChoice="Nil";
 Spinner sortby_spinner;
-String sortby[]={"Random","Priority","Time"};
+String sortby[]={"Random","Priority"};
     @Override
     protected void onStart() {
         super.onStart();
@@ -117,11 +117,20 @@ String sortby[]={"Random","Priority","Time"};
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         if((i1+1)<10)
                         {
-                            enddate=i+"-0"+(i1+1)+"-"+i2;
+                            enddate=i+"-0"+(i1+1);
                         }
                         else
                         {
-                            enddate=i+"-"+(i1+1)+"-"+i2;
+                            enddate=i+"-"+(i1+1);
+                        }
+
+                        if(i2<10)
+                        {
+                            enddate+="-0"+i2;
+                        }
+                        else
+                        {
+                            enddate+="-"+i2;
                         }
 
                         enddate_ed.setText(enddate);
@@ -181,6 +190,7 @@ String sortby[]={"Random","Priority","Time"};
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sortbyChoice=sortby[i];
+                new ReminderTask().execute("https://pro-scheduler-backend.herokuapp.com/getReminderall/uid/" + currentUser.getUid(),sortbyChoice);
             }
 
             @Override
@@ -248,18 +258,19 @@ String sortby[]={"Random","Priority","Time"};
                     JSONObject temp=dataArray.getJSONObject(i);
                     reminderDetails=new ReminderDetails();
                     reminderDetails.note=temp.getString("note");
-                    reminderDetails.priority=temp.getString("priority");
-                    reminderDetails.notification=temp.getString("notification");
-                    reminderDetails.r_date=temp.getString("r_date");
-                    reminderDetails.r_time=temp.getString("r_time");
+                    reminderDetails.priority=temp.getString("pri");
+                    reminderDetails.notification=temp.getString("noti");
+                    reminderDetails.r_date=temp.getString("date");
+                    reminderDetails.r_time=temp.getString("time");
                     reminderDetails.uid=temp.getString("uid");
                     reminderDetails.title=temp.getString("title");
+                    reminderDetails.rid=temp.getString("rid");
                     list.add(reminderDetails);
                 }
 
 
 
-                List<ReminderDetails> finallist=getFinalList(list,sortbyChoice);
+                List<ReminderDetails> finallist=getFinalList(list,choice);
 
                 reminderAdapter=new ReminderAdapter(finallist, new ReminderAdapter.OnItemClickListener() {
                     @Override
@@ -286,14 +297,34 @@ String sortby[]={"Random","Priority","Time"};
 
         private List<ReminderDetails> getFinalList(List<ReminderDetails> list, String sortbyChoice) {
             List<ReminderDetails> templist=new ArrayList<ReminderDetails>();
+            List<ReminderDetails> h,l,m;
+            h=new ArrayList<ReminderDetails>();
+            l=new ArrayList<ReminderDetails>();
+            m=new ArrayList<ReminderDetails>();
             if(sortbyChoice.equals("Random"))
                 return list;
-            else if(sortbyChoice.equals("Time")) {
-                return list;
+            else if(sortbyChoice.equals("Priority")) {
+                for(ReminderDetails item:list)
+                {
+                    if(item.priority.equals("H"))
+                    {
+                        h.add(item);
+                    }
+                    else if(item.priority.equals("L"))
+                    {
+                        l.add(item);
+                    }
+                    else if(item.priority.equals("M"))
+                    {
+                        m.add(item);
+                    }
+                }
+                templist.addAll(h);
+                templist.addAll(m);
+                templist.addAll(l);
+                return templist;
             }
-            else if(sortbyChoice.equals("Priority"))
-                return list;
-            return templist;
+            return list;
         }
     }
 

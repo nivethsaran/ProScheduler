@@ -13,7 +13,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".CalendarModule.OnlineCalendarActivity" />
 
-        <activity android:name="$ProfileModule.EditProfileActivity" />
+        <activity android:name=".ProfileModule.EditProfileActivity" />
         <activity android:name=".LoginModule.ContactActivity" />
         <activity android:name=".ReminderModule.AddEditReminderActivity" />
         <activity

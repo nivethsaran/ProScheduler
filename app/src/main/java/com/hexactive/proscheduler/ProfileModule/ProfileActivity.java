@@ -94,11 +94,11 @@ ProgressDialog dialog;
                 JSONArray dataArray1=new JSONArray(s[0]);
                 JSONArray dataArray2=new JSONArray(s[1]);
                 JSONObject jsonObject1=dataArray1.getJSONObject(0);
-                nametv.setText(jsonObject1.getString("f_name")+" "+jsonObject1.getString("r_name"));
-                designationtv.setText(jsonObject1.getString("designation"));
+                nametv.setText(jsonObject1.getString("fname")+" "+jsonObject1.getString("rname"));
+                designationtv.setText(jsonObject1.getString("design"));
                 emailtv.setText("Email:"+jsonObject1.getString("email"));
                 mobiletv.setText(jsonObject1.getString("mobile"));
-                resumepathtv.setText("Resume:"+jsonObject1.getString("resumepath"));
+                resumepathtv.setText("Resume:"+jsonObject1.getString("rpath"));
                 for (int i=0;i<dataArray2.length();i++)
                 {
                     JSONObject jsonObjectTemp=dataArray2.getJSONObject(i);

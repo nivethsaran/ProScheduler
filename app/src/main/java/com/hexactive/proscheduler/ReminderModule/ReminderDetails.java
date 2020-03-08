@@ -18,7 +18,7 @@ public class ReminderDetails implements Serializable {
         this.rid=null;
     }
 
-    ReminderDetails(String uid,String r_date,String r_time,String  note,String title,String notification,String priority)
+    ReminderDetails(String uid,String r_date,String r_time,String  note,String title,String notification,String priority,String rid)
     {
         this.uid=uid;
         this.r_date=r_date;

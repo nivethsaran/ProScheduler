@@ -28,7 +28,7 @@ Button updatebtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        updatebtn=findViewById(R.id.update_btn);
+        updatebtn=findViewById(R.id.updatecheck_btn);
         sp=getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
         rememberpass=findViewById(R.id.rememberpass);
         automaticlogin=findViewById(R.id.automaticlogin);

@@ -3,6 +3,7 @@ package com.hexactive.proscheduler.ReminderModule;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hexactive.proscheduler.R;
+
+import org.jsoup.Jsoup;
 
 import java.util.List;
 
@@ -131,8 +134,9 @@ LayoutInflater inflater;
             Delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    Toast.makeText(itemView.getContext(),"Delete"+menuTemp.uid,Toast.LENGTH_SHORT).show();
-                    new DeleteReminderTask().execute();
+                    Toast.makeText(itemView.getContext(),"Delete"+menuTemp.rid,Toast.LENGTH_SHORT).show();
+                    String url="http://pro-scheduler-backend.herokuapp.com/deleteReminder/uid/"+menuTemp.uid+"/rid/"+menuTemp.rid;
+                    new DeleteReminderTask().execute(url);
                     return false;
                 }
             });
@@ -143,18 +147,27 @@ LayoutInflater inflater;
         void onItemClick(ReminderDetails reminderDetails);
     }
 
-    class DeleteReminderTask extends AsyncTask<Void,Void,Void>
+    class DeleteReminderTask extends AsyncTask<String,Void,Void>
     {
-
+        String URL;
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(String... voids) {
+            try{
+                URL=voids[0];
+                String resp = Jsoup.connect(URL).ignoreContentType(true).execute().body();
+            }
+            catch (Exception e)
+            {
+                Log.d("Error","Error");
+            }
+//            return resp;
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context,"Delet command triggered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Deleted",Toast.LENGTH_SHORT).show();
         }
     }
 }

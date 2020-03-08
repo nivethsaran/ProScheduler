@@ -189,7 +189,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
                     AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
                     PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP,millis,pendingIntent);
-
+                    Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
                     new AddReminderTask().execute(url);
                 }
                 else{
@@ -279,11 +279,20 @@ public class AddEditReminderActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         if((i1+1)<10)
                         {
-                            date=i+"-0"+(i1+1)+"-"+i2;
+                            date=i+"-0"+(i1+1);
                         }
                         else
                         {
-                            date=i+"-"+(i1+1)+"-"+i2;
+                            date=i+"-"+(i1+1);
+                        }
+
+                        if(i2<10)
+                        {
+                            date+="-0"+i2;
+                        }
+                        else
+                        {
+                            date+="-"+i2;
                         }
 
                         date_et.setText(date);
