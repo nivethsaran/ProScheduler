@@ -7,5 +7,6 @@
     <color name="colorTextHint">#929aab</color>
     <color name="bgColorMain">#303030</color>
     <color name="red">#FF0000</color>
+    <color name="palered">#f67575</color>
 </resources>
 
