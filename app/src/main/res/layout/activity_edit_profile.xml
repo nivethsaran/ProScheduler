@@ -27,6 +27,7 @@
         android:id="@+id/fname_tv"
         android:textColorHighlight="@color/colorAccent"
         android:enabled="false"
+        android:textColor="@color/colorText"
         android:backgroundTint="@color/colorAccent"
         android:layout_height="wrap_content">
     </EditText>
@@ -60,6 +61,7 @@
             android:id="@+id/lname_tv"
             android:textColorHighlight="@color/colorAccent"
             android:enabled="false"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorAccent"
             android:layout_height="wrap_content">
         </EditText>
@@ -92,6 +94,7 @@
             android:id="@+id/design_tv"
             android:textColorHighlight="@color/colorAccent"
             android:enabled="false"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorAccent"
             android:layout_height="wrap_content">
         </EditText>
@@ -123,6 +126,7 @@
             android:id="@+id/email_tv"
             android:textColorHighlight="@color/colorAccent"
             android:enabled="false"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorAccent"
             android:layout_height="wrap_content">
         </EditText>
@@ -154,6 +158,7 @@
             android:id="@+id/mobile_tv"
             android:textColorHighlight="@color/colorAccent"
             android:enabled="false"
+            android:textColor="@color/colorText"
             android:backgroundTint="@color/colorAccent"
             android:layout_height="wrap_content">
         </EditText>
@@ -166,6 +171,14 @@
 
         </ImageView>
     </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:id="@+id/updateProfile"
+        android:layout_gravity="center"
+        />
 
 
 

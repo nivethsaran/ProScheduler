@@ -7,7 +7,13 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hexactive.proscheduler.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 
@@ -36,7 +42,8 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
         // for example downloading or creating content etc, should be deferred to onDataSetChanged()
         // or getViewAt(). Taking more than 20 seconds in this call will result in an ANR.
         records=new ArrayList<String>();
-        records.add("Hello");
+
+
     }
     // Given the position (index) of a WidgetItem in the array, use the item's text value in
     // combination with the app widget item XML file to construct a RemoteViews object.
@@ -70,6 +77,26 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     public void onDataSetChanged(){
         // Fetcing JSON data from server and add them to records arraylist
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser=auth.getCurrentUser();
+
+        try {
+//            String json="";
+            String url="https://pro-scheduler-backend.herokuapp.com/getReminderall/uid/" + firebaseUser.getUid();
+            String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
+//            records.add(url);
+            JSONArray dataArray=new JSONArray(json);
+            for (int i=0;i<dataArray.length();i++) {
+                JSONObject temp=dataArray.getJSONObject(i);
+                records.add(temp.getString("title").replace('_',' '));
+            }
+            }
+
+        catch (Exception e)
+        {
+            Log.d("Widget","Widget");
+            e.printStackTrace();
+        }
     }
 
     public int getViewTypeCount(){

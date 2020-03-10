@@ -29,7 +29,7 @@ public class ReminderNotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("Alarm",intent.getStringExtra("title"));
+        Log.d("Alarm","Started");
         title=intent.getStringExtra("title");
         uid=intent.getStringExtra("uid");
         date=intent.getStringExtra("date");
@@ -119,39 +119,52 @@ public class ReminderNotificationService extends Service {
                 NotificationManager mNotificationManager;
 
                 NotificationCompat.Builder builder =
-                        new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+                        new NotificationCompat.Builder(getApplicationContext(), "Reminder");
                 Intent ii = new Intent(getApplicationContext(), MainActivity.class);
                 PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
 
                 NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-                bigText.bigText("Something fancy");
-                bigText.setBigContentTitle("Today's Bible Verse");
-                bigText.setSummaryText("Text in detail");
+                bigText.bigText("Reminder");
+                bigText.setBigContentTitle(title);
+                bigText.setSummaryText(note);
 
                 builder.setContentIntent(pendingIntent);
                 builder.setSmallIcon(R.mipmap.ic_launcher_round);
-                builder.setContentTitle("Your Title");
-                builder.setContentText("Your text");
+                builder.setContentTitle(title);
+                builder.setContentText(note);
 
                 builder.setPriority(Notification.PRIORITY_MAX);
                 builder.setStyle(bigText);
 
                 mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
+                int notipri=NotificationManager.IMPORTANCE_DEFAULT;
+                if(priority.equals("H"))
+                {
+                    notipri=NotificationManager.IMPORTANCE_HIGH;
+                }
+                else if(priority.equals("M"))
+                {
+                    notipri=NotificationManager.IMPORTANCE_DEFAULT;
+                }
+                else if (priority.equals("L"))
+                {
+                    notipri=NotificationManager.IMPORTANCE_LOW;
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 {
-                    String channelId = "Your_channel_id";
+                    String channelId = "Reminder";
                     NotificationChannel channel = new NotificationChannel(
                             channelId,
-                            "Channel human readable title",
-                            NotificationManager.IMPORTANCE_HIGH);
+                            "Reminder Channel",
+                            notipri);
                     mNotificationManager.createNotificationChannel(channel);
                     builder.setChannelId(channelId);
                 }
                 // Will display the notification in the notification bar
+                if(notification.equals("1")){
                 mNotificationManager.notify(1, builder.build());
                 MediaPlayer mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.beep);
-                mediaPlayer.start();
+                mediaPlayer.start();}
 
 
             }

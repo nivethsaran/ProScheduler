@@ -218,7 +218,7 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-            return;
+            firebaseAuth.signOut();
         }
 
         this.doubleBackToExitPressedOnce = true;

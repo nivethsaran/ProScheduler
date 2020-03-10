@@ -11,8 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CalendarModule.OnlineCalendarActivity" />
+        <activity android:name=".MiscModules.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ProfileModule.PreviousActivityModule" />
+        <activity android:name=".CalendarModule.OnlineCalendarActivity" />
         <activity android:name=".ProfileModule.EditProfileActivity" />
         <activity android:name=".LoginModule.ContactActivity" />
         <activity android:name=".ReminderModule.AddEditReminderActivity" />
@@ -22,17 +30,11 @@
         <activity android:name=".ReminderModule.ReminderActivity" />
         <activity android:name=".ProfileModule.ProfileActivity" />
         <activity android:name=".SettingsModule.SettingsActivity" />
-        <activity android:name=".LoginModule.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".LoginModule.LoginActivity"/>
         <activity
             android:name=".MainModule.MainActivity"
             android:theme="@style/AppThemeToolbar" />
+
         <receiver android:name=".WidgetModule.TodaysReminderWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

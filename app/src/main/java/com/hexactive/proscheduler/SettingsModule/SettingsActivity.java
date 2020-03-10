@@ -2,6 +2,7 @@ package com.hexactive.proscheduler.SettingsModule;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.hexactive.proscheduler.BuildConfig;
 import com.hexactive.proscheduler.R;
+
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 public class SettingsActivity extends AppCompatActivity {
 SharedPreferences sp;
@@ -40,7 +44,8 @@ Button updatebtn;
         updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), BuildConfig.VERSION_NAME,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), BuildConfig.VERSION_NAME,Toast.LENGTH_SHORT).show();
+                new UpdateTask().execute();
             }
         });
 
@@ -86,4 +91,47 @@ Button updatebtn;
         });
 
     }
+
+    class UpdateTask extends AsyncTask<Void,Void,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                String url = "https://pro-scheduler-backend.herokuapp.com/getversion";
+//                Log.d("ImportantReminder","URL:"+url);
+                String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
+                JSONObject jsonObject=new JSONObject(json);
+                if(jsonObject.get("version").equals(BuildConfig.VERSION_NAME))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+//                    Log.d("ImportantReminder","JSON:"+json);
+            }
+            catch (Exception e)
+            {
+                return false;
+//                e.printStackTrace();
+//                Log.d("ImportantReminder","Error");
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if(aBoolean) {
+                Toast.makeText(getApplicationContext(), "Update Availabale", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"No Update Available",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }

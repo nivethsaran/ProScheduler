@@ -133,8 +133,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
-                android:padding="20sp"
+
                 android:id="@+id/important_reminder_container"/>
 
 

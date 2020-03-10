@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,7 +78,7 @@ RecyclerView important_reminder_rv;
 
         ReminderDetails reminderDetails;
         List<ReminderDetails> list;
-        boolean hP=true;
+        boolean hP=false;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -142,11 +143,11 @@ RecyclerView important_reminder_rv;
                 }
                 ImportantReminderAdapter reminderAdapter=new ImportantReminderAdapter(list);
                 important_reminder_rv.setAdapter(reminderAdapter);
-//                if(hP)
-//                {
-//                    backgroundChange.setBackgroundColor(ContextCompat.getColor(context, R.color.palered));
-//                }
-//                backgroundChange.setBackgroundColor(ContextCompat.getColor(context, R.color.palered));
+                if(hP)
+                {
+                    backgroundChange.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.palered));
+                }
+//                backgroundChange.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.palered));
                 progressBar.setVisibility(View.INVISIBLE);
             }catch (Exception e)
             {

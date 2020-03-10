@@ -21,9 +21,9 @@
             android:layout_height="150dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
-
             android:src="@drawable/profilebg"
             app:srcCompat="@drawable/profilebg" />
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -65,6 +65,18 @@
                 android:clickable="true"
 
                 android:src="@android:drawable/ic_menu_edit" />
+            <ImageView
+                android:id="@+id/history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:visibility="visible"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+
+                android:src="@android:drawable/ic_menu_recent_history" />
 
             <TextView
                 android:id="@+id/name"
@@ -72,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="70dp"
-                android:text="Pro Developer"
+                android:text="Name Not Available"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -84,7 +96,7 @@
                 android:layout_below="@+id/mobile"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Surat"
+                android:text="Designation:"
                 android:textColor="#fff"
                 android:textSize="16sp" />
 
@@ -95,7 +107,7 @@
                 android:layout_below="@+id/name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="(Adhyaksh)"
+                android:text="Mobile Not Available"
                 android:textColor="#fff"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -115,55 +127,61 @@
 
             <TextView
                 android:id="@+id/email"
+                android:autoLink="email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorText"
-                android:text="Text"
+                android:text="Email:"
                  />
             <TextView
                 android:id="@+id/linkedin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorText"
-                android:text="Text"
+                android:text="Linkedin:"
                 />
 
             <TextView
                 android:id="@+id/instagram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorText"
-                android:text="Text"
+                android:text="Instagram:"
                 />
 
             <TextView
                 android:id="@+id/resume"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorText"
-                android:text="Text"
+                android:text="Resume:"
                 />
 
             <TextView
                 android:id="@+id/website"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorText"
-                android:text="Text"
+                android:text="Website:"
                 />
 
             <TextView
                 android:id="@+id/github"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorText"
-                android:text="Text"
+                android:text="Github:"
                 />
 
 

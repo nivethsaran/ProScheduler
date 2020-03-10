@@ -243,9 +243,10 @@ public class LoginActivity extends AppCompatActivity {
                             if(e.getLocalizedMessage().equals("The password is invalid or the user does not have a password."))
                             edit.putInt("count",sp.getInt("count",0)+1);
 
-                            if(sp.getInt("count",0)>3)
+                            if(sp.getInt("count",0)>=3)
                             {
                                 edit.putBoolean("allow",false);
+                                edit.putInt("count",0);
                                 Intent myIntent = new Intent(LoginActivity.this , LockService.class);
                                 AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
                                 PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);

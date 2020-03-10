@@ -14,32 +14,35 @@
         android:layout_height="match_parent"
         android:background="@color/bgColorMain"
         tools:context=".CalendarModule.CalendarActivity">
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_height="wrap_content">
             <Button
                 android:layout_width="wrap_content"
-                android:text="Zoom In"
+                android:text="+"
+                android:layout_gravity="left"
                 android:id="@+id/zoomin"
                 android:layout_height="wrap_content">
             </Button>
             <Button
                 android:layout_width="wrap_content"
-                android:text="Zoom Out"
+                android:text="-"
+                android:layout_gravity="right"
                 android:id="@+id/zoomout"
                 android:layout_height="wrap_content">
             </Button>
-        </LinearLayout>
-        <CalendarView
-            android:layout_width="wrap_content"
-            android:layout_marginHorizontal="50sp"
-            android:id="@+id/calendar"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorTextHint"
-            android:layout_height="wrap_content">
-        </CalendarView>
+            <CalendarView
+                android:layout_width="200sp"
+                android:layout_marginHorizontal="50sp"
+                android:id="@+id/calendar"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorTextHint"
+                android:layout_height="wrap_content">
+            </CalendarView>
+        </FrameLayout>
+
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -49,6 +52,7 @@
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="Daily"
                 android:textColor="@color/colorText"
                 android:layout_weight="1"
@@ -68,11 +72,21 @@
                 android:layout_weight="1"
                 android:id="@+id/rb3"/>
         </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Events"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:textColor="@color/colorText"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/event_rv"
+            android:padding="20sp"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/event_rv"
-        android:layout_height="300sp"/>
+
 
 </ScrollView>
