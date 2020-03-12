@@ -56,10 +56,7 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         SharedPreferences sp=getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
         language=sp.getString("langauge","en");
         firebaseAuth=FirebaseAuth.getInstance();
-        importantReminderFragment = new ImportantReminderFragment();
-        getSupportFragmentManager().beginTransaction().detach(importantReminderFragment);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.important_reminder_container, importantReminderFragment).commit();
+
     }
 
     @Override
@@ -75,7 +72,10 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
         main_lang_spinner=findViewById(R.id.spinner_login_language);
         changeLan_btn=findViewById(R.id.change_lan_btn);
 
-
+        importantReminderFragment = new ImportantReminderFragment();
+        getSupportFragmentManager().beginTransaction().detach(importantReminderFragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.important_reminder_container, importantReminderFragment).commit();
 
         ArrayAdapter<String> priorityAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.priority_spinner_item,new String[]{"English","Spanish"});
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1);

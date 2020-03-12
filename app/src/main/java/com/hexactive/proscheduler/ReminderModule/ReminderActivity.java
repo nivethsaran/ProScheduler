@@ -287,7 +287,7 @@ String sortby[]={"Random","Priority"};
             }catch (Exception e)
             {
                 e.printStackTrace();
-                Log.d("Login",e.getMessage());
+                Log.d("Login1234",e.getMessage());
             }
             if (dialog.isShowing()) {
                 dialog.dismiss();

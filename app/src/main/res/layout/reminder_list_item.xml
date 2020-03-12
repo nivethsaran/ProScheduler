@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:id="@+id/list_priority_tv"
             android:text="Priority"
+            android:textAlignment="center"
             android:textColor="@color/colorText"
             android:layout_height="wrap_content"/>
 
@@ -44,6 +45,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/list_uid_tv"
         android:text="Text"
+        android:visibility="gone"
         android:textColor="@color/colorText"
         android:layout_height="wrap_content"/>
     <TextView

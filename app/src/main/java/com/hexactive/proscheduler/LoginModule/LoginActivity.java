@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
             login_btn.setEnabled(false);
         automaticLogin=sp.getBoolean("automatic",false);
         count=sp.getInt("count",0);
-        Log.d("Login",language);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -224,7 +222,6 @@ public class LoginActivity extends AppCompatActivity {
                                     if(task.isSuccessful())
                                     {
                                         currentUser=mAuth.getCurrentUser();
-                                        Log.d("Login",currentUser.getEmail());
                                         if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }

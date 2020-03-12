@@ -189,7 +189,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
                     AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
                     PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP,millis,pendingIntent);
-                    Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
                     new AddReminderTask().execute(url);
                 }
                 else{
