@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 else
                 {
                     String email=edittext_email.getText().toString()+"@cb.students.amrita.edu";
-                    mAuth.sendPasswordResetEmail("hmttlp9775@smlmail.com");
+                    mAuth.sendPasswordResetEmail(email);
                 }
 
             }
