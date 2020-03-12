@@ -25,6 +25,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -153,7 +154,17 @@ public class LoginActivity extends AppCompatActivity {
                 else
                 {
                     String email=edittext_email.getText().toString()+"@cb.students.amrita.edu";
-                    mAuth.sendPasswordResetEmail(email);
+                    mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(),"Mail Sent",Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
             }
