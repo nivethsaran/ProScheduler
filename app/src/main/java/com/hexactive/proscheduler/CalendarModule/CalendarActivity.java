@@ -35,17 +35,21 @@ import java.util.List;
 public class CalendarActivity extends AppCompatActivity {
 private CalendarView calendarView;
 RadioGroup rdg;
-RadioButton rb1,rb2,rb3;
-Button zoomin,zoomout;
-String sdate="",edate="";
-long SDATE,EDATE;
+RadioButton rb1;
+RadioButton rb2;
+RadioButton rb3;
+Button zoomin;
+Button zoomout;
+String sdate="";
+String edate="";
+long SDATE1;
+long EDATE1;
 RecyclerView rv;
 CalendarAdapter calendarAdapter;
 String url="";
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
@@ -55,13 +59,13 @@ String url="";
         rdg=findViewById(R.id.rdg);
 
         rv=findViewById(R.id.event_rv);
-        SDATE=System.currentTimeMillis();
-        EDATE=System.currentTimeMillis()+86400000;
+        SDATE1=System.currentTimeMillis();
+        EDATE1=System.currentTimeMillis()+86400000;
 
 
 
-        sdate=formatter.format(new Date(SDATE));
-        edate=formatter.format(new Date(EDATE));
+        sdate=formatter.format(new Date(SDATE1));
+        edate=formatter.format(new Date(EDATE1));
         url="https://pro-scheduler-backend.herokuapp.com/geteventdata/sd/"+sdate+"/ed/"+edate;
         new EventTask().execute(url);
         calendarView=findViewById(R.id.calendar);
@@ -185,7 +189,6 @@ String url="";
                     Log.d("Login","JSON:"+json);
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
                     Log.d("Login", "Error");
                 }
 
@@ -196,7 +199,6 @@ String url="";
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
             try{
-//                JSONObject data=new JSONObject(json);
                 JSONArray dataArray=new JSONArray(json);
                 list=new ArrayList<EventDetails>();
                 for (int i=0;i<dataArray.length();i++)
@@ -215,7 +217,6 @@ String url="";
                 rv.setAdapter(calendarAdapter);
             }catch (Exception e)
             {
-                e.printStackTrace();
                 Log.d("Login",e.getMessage());
             }
         }

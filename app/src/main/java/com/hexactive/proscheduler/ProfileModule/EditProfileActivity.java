@@ -169,7 +169,6 @@ FirebaseUser currentuser;
             }
             catch (Exception e)
             {
-                e.printStackTrace();
                 return "Error";
 //                Log.d("Login","Error");
             }

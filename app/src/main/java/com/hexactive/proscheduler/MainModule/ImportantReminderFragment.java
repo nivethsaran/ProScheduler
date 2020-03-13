@@ -99,7 +99,6 @@ RecyclerView important_reminder_rv;
                 }
                 catch (Exception e)
                 {
-                    e.printStackTrace();
                     Log.d("ImportantReminder","Error");
                 }
             }
@@ -151,7 +150,6 @@ RecyclerView important_reminder_rv;
                 progressBar.setVisibility(View.INVISIBLE);
             }catch (Exception e)
             {
-                e.printStackTrace();
                 progressBar.setVisibility(View.INVISIBLE);
                 Log.d("ImportantReminder",e.getMessage());
             }

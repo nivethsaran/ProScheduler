@@ -286,7 +286,6 @@ String sortby[]={"Random","Priority"};
                 reminder_rv.setAdapter(reminderAdapter);
             }catch (Exception e)
             {
-                e.printStackTrace();
                 Log.d("Login1234",e.getMessage());
             }
             if (dialog.isShowing()) {

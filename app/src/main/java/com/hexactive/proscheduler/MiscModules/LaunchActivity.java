@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -55,8 +56,8 @@ public class LaunchActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... voids) {
             try {
                 sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Log.d("Error","Error");
             }
             if(isNetworkAvailable())
             {

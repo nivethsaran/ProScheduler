@@ -95,7 +95,6 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
         catch (Exception e)
         {
             Log.d("Widget","Widget");
-            e.printStackTrace();
         }
     }
 

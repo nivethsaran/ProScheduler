@@ -93,7 +93,6 @@ public class ReminderNotificationService extends Service {
 
                 }catch (Exception e)
                 {
-                    e.printStackTrace();
                     Log.d("Login",e.getMessage());
                 }
                 if(approval.equals("true"))

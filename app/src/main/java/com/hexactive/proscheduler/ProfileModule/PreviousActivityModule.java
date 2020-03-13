@@ -58,7 +58,6 @@ ListView lv;
             }
             catch (Exception e)
             {
-                e.printStackTrace();
                 Log.d("Login",e.getMessage());
             }
             return json;

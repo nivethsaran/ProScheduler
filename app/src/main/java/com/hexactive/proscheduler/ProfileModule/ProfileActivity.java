@@ -100,7 +100,6 @@ ProgressDialog dialog;
             }
             catch (Exception e)
             {
-                e.printStackTrace();
 //                Log.d("Login","Error");
             }
             return new String[]{json1,json2};
