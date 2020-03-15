@@ -47,6 +47,7 @@ long EDATE1;
 RecyclerView rv;
 CalendarAdapter calendarAdapter;
 String url="";
+//Comment to build trigger
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
