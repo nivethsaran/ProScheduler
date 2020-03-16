@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -114,6 +115,9 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
             public void onClick(View view) {
                 locale = new Locale(language);
                 Locale.setDefault(locale);
+                SharedPreferences preferences = getSharedPreferences("mycredentials",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("language", language);
                 Configuration config = new Configuration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
@@ -210,6 +214,20 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
             }).setCancelable(true);
             builder.show();
         }
+        else if(item.getItemId()==R.id.osl)
+        {
+            String url = "https://choosealicense.com/licenses/mit/";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+        else if(item.getItemId()==R.id.tandc)
+        {
+            String url = "https://www.termsandconditionsgenerator.com/live.php?token=YXkJtIc6gZs38KDWSMhHQwI3VJ9PKhlM";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -232,4 +250,6 @@ ImageButton calendar_btn,reminder_btn,settings_btn,profile_btn;
             }
         }, 2000);
     }
+
+
 }

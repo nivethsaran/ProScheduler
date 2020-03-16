@@ -1,6 +1,9 @@
 package com.hexactive.proscheduler.ProfileModule;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -18,12 +22,16 @@ import com.hexactive.proscheduler.R;
 
 import org.jsoup.Jsoup;
 
+import java.util.Locale;
+
 public class EditProfileActivity extends AppCompatActivity {
 
 EditText fname_tv,lname_tv,mobile_tv,email_tv,design_tv;
 ImageView fname_iv,lname_iv,mobile_iv,email_iv,design_iv;
 Button update;
 FirebaseAuth auth;
+    private Locale locale;
+    String language;
 FirebaseUser currentuser;
 
     @Override
@@ -31,6 +39,9 @@ FirebaseUser currentuser;
         super.onStart();
         auth=FirebaseAuth.getInstance();
         currentuser=auth.getCurrentUser();
+        SharedPreferences sp=getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
+        language=sp.getString("langauge","en");
+        locale = new Locale(language);
     }
 
     @Override
@@ -179,5 +190,14 @@ FirebaseUser currentuser;
             super.onPostExecute(s);
             Log.d("EditProfile",s);
         }
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        // refresh your views here
+        Locale.setDefault(locale);
+        config.locale = locale;
+        super.onConfigurationChanged(newConfig);
+
     }
 }

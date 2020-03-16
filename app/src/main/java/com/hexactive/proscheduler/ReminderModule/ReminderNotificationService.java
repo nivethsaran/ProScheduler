@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -66,15 +65,16 @@ public class ReminderNotificationService extends Service {
             String approval="false";
             try{
                 String resp = Jsoup.connect("https://pro-scheduler-backend.herokuapp.com/getReminderCheck/rid/"+strings[7]).ignoreContentType(true).execute().body();
-                Log.d("Alarm",resp);
+                Log.d("Alarm","https://pro-scheduler-backend.herokuapp.com/getReminderCheck/rid/"+strings[7]+","+resp);
                 try{
 //                JSONObject data=new JSONObject(json);
                     JSONArray dataArray=new JSONArray(resp);
-                    if(dataArray.length()==1)
+                    if(dataArray.length()!=0)
                     {
                         JSONObject temp=dataArray.getJSONObject(0);
                         String tempDate=temp.getString("date").substring(0,10);
                         String tempTime=temp.getString("time");
+                        Log.d("Alarm",strings[2]+" "+tempDate+" "+strings[3]+":00 "+tempTime);
                         if(strings[2].equals(tempDate)&&(strings[3]+":00").equals(tempTime))
                         {
                             Log.d("Alarm",resp+"Yeahmaaannn");
@@ -95,11 +95,6 @@ public class ReminderNotificationService extends Service {
                 {
                     Log.d("Login",e.getMessage());
                 }
-                if(approval.equals("true"))
-                {
-
-                }
-
             }
             catch (Exception e)
             {
@@ -149,8 +144,7 @@ public class ReminderNotificationService extends Service {
                 {
                     notipri=NotificationManager.IMPORTANCE_LOW;
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                {
+
                     String channelId = "Reminder";
                     NotificationChannel channel = new NotificationChannel(
                             channelId,
@@ -158,7 +152,7 @@ public class ReminderNotificationService extends Service {
                             notipri);
                     mNotificationManager.createNotificationChannel(channel);
                     builder.setChannelId(channelId);
-                }
+
                 // Will display the notification in the notification bar
                 if(notification.equals("1")){
                 mNotificationManager.notify(1, builder.build());

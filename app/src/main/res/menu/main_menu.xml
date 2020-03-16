@@ -5,13 +5,6 @@
     android:icon="@drawable/logout"
     android:title="Logout"
     app:showAsAction="always"/>
-
-    <item android:id="@+id/developers"
-        android:title="About developers"
-        app:showAsAction="never"/>
-    <item android:id="@+id/faq"
-        android:title="FAQ"
-        app:showAsAction="never"/>
     <item android:id="@+id/osl"
         android:title="Open Source License"
         app:showAsAction="never"/>

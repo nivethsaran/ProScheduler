@@ -2,7 +2,10 @@ package com.hexactive.proscheduler.ReminderModule;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +39,7 @@ import org.jsoup.Jsoup;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ReminderActivity extends AppCompatActivity {
 RecyclerView reminder_rv;
@@ -53,12 +58,23 @@ Button query_rem_btn;
 String tempUrl="",sortbyChoice="Nil";
 Spinner sortby_spinner;
 String sortby[]={"Random","Priority"};
+    private Locale locale;
+    String language;
     @Override
     protected void onStart() {
         super.onStart();
         sortbyChoice="Random";
+        SharedPreferences sp=getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
+        language=sp.getString("langauge","en");
+        locale = new Locale(language);
 //        tempUrl="https://pro-scheduler-backend.herokuapp.com/getReminderall/uid/" + currentUser.getUid();
 //        new ReminderTask().execute(tempUrl,sortbyChoice);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new ReminderTask().execute("https://pro-scheduler-backend.herokuapp.com/getReminderall/uid/" + currentUser.getUid(),sortbyChoice);
     }
 
     @Override
@@ -327,5 +343,13 @@ String sortby[]={"Random","Priority"};
         }
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        // refresh your views here
+        Locale.setDefault(locale);
+        config.locale = locale;
+        super.onConfigurationChanged(newConfig);
 
+    }
 }

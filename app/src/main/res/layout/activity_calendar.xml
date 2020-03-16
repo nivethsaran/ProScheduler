@@ -53,21 +53,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Daily"
+                android:text="@string/daily"
                 android:textColor="@color/colorText"
                 android:layout_weight="1"
                 android:id="@+id/rb1"/>
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Weekly"
+                android:text="@string/weekly"
                 android:textColor="@color/colorText"
                 android:layout_weight="1"
                 android:id="@+id/rb2"/>
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Monthly"
+                android:text="@string/monthly"
                 android:textColor="@color/colorText"
                 android:layout_weight="1"
                 android:id="@+id/rb3"/>
@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Events"
+            android:text="@string/events"
             android:layout_gravity="center"
             android:textSize="30sp"
             android:textColor="@color/colorText"/>

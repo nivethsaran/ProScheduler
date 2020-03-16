@@ -1,6 +1,9 @@
 package com.hexactive.proscheduler.CalendarModule;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
 private CalendarView calendarView;
@@ -47,7 +51,18 @@ long EDATE1;
 RecyclerView rv;
 CalendarAdapter calendarAdapter;
 String url="";
+private Locale locale;
+    String language;
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sp=getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
+        language=sp.getString("langauge","en");
+        locale = new Locale(language);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -221,6 +236,16 @@ String url="";
             }
         }
 
+
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        // refresh your views here
+        Locale.setDefault(locale);
+        config.locale = locale;
+        super.onConfigurationChanged(newConfig);
 
     }
 }

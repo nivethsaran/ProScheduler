@@ -1,7 +1,10 @@
 package com.hexactive.proscheduler.ProfileModule;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
@@ -21,13 +25,26 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import java.util.Locale;
+
 public class ProfileActivity extends AppCompatActivity {
 FirebaseAuth mAuth;
 FirebaseUser firebaseUser;
 ImageView edit_iv,history_iv;
 TextView designationtv,nametv,emailtv,mobiletv,avatarurltv,resumepathtv,instatv,githubtv,linkedintv,websitetv;
 ImageView avatar;
+    private Locale locale;
+    String language;
 ProgressDialog dialog;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sp=getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
+        language=sp.getString("langauge","en");
+        locale = new Locale(language);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,5 +169,14 @@ ProgressDialog dialog;
                 dialog.dismiss();
             }
         }
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        // refresh your views here
+        Locale.setDefault(locale);
+        config.locale = locale;
+        super.onConfigurationChanged(newConfig);
+
     }
 }

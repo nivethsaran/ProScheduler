@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -155,6 +157,40 @@ RecyclerView important_reminder_rv;
             }
 
         }
+
+
+
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("fragmentmain","AcrCreated");
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d("fragmentmain","Attach");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("fragmentmain","Detach");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("fragmentmain","Created");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("fragmentmain","Resume");
+        new ImportantReminderTask().execute();
+
+    }
 }

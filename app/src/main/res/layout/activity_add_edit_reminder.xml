@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create/Edit Reminders"
+        android:text="@string/add_edit"
         android:layout_gravity="center"
         android:textSize="30sp"
         android:textColor="@color/colorText"/>
@@ -25,7 +25,7 @@
         android:layout_marginHorizontal="20sp"
         android:freezesText="true"
         android:ems="10"
-        android:hint="Title"
+        android:hint="@string/title"
 
         android:inputType="text">
         <com.google.android.material.textfield.TextInputEditText
@@ -44,7 +44,7 @@
         android:layout_marginHorizontal="20sp"
         android:freezesText="true"
         android:ems="10"
-        android:hint="Note"
+        android:hint="@string/note"
 
         android:inputType="textMultiLine">
         <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="#929aab"
         android:ems="10"
-        android:hint="Date"
+        android:hint="@string/date"
         android:focusable="false"
         android:paddingVertical="20dp"
         android:layout_marginHorizontal="20sp"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="#929aab"
         android:ems="10"
-        android:hint="Time"
+        android:hint="@string/time"
         android:focusable="false"
         android:paddingVertical="20dp"
         android:layout_marginHorizontal="20sp"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/notification_check"
         android:textColor="@color/colorTextHint"
-        android:text="Check to Enable Notification"/>
+        android:text="@string/checknoti"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="horizontal"
@@ -112,13 +112,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/submit_btn"
-        android:text="Add"/>
+        android:text="@string/add"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/update_btn"
         android:layout_weight="1"
-        android:text="Update"/>
+        android:text="@string/update"/>
 </LinearLayout>
 
 

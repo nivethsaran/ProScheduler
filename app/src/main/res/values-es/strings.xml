@@ -11,7 +11,32 @@
     <string name="remember_me">Recuérdame</string>
     <string name="calendarevents">Calendario / Eventos</string>
     <string name="importantreminders">Recordatorios de hoy</string>
-    <string name="profilepage" translatable="false">Página de perfil</string>
+    <string name="profilepage" translatable="false">Pagina de perfil</string>
     <string name="reminder">Recordatorio</string>
     <string name="settings">Configuraciones</string>
+    <string name="title">" Título"</string>
+    <string name="add_edit">" Crear o editar recordatorios"</string>
+    <string name="add_widget">"Agregar widget "</string>
+    <string name="configure">Configurar</string>
+    <string name="appwidget_text">Recordatorios</string>
+    <string name="note">Nota</string>
+    <string name="date">Fecha</string>
+    <string name="time">Hora</string>
+    <string name="checknoti">Marque para habilitar la notificación</string>
+    <string name="add">Añadir</string>
+    <string name="update">Actualizar</string>
+    <string name="sortby">Ordenar por:</string>
+    <string name="apply">Aplicar</string>
+    <string name="startdate">Fecha de inicio</string>
+    <string name="enddate">Fecha final</string>
+    <string name="events">Eventos</string>
+    <string name="daily">Diario</string>
+    <string name="weekly">Semanal</string>
+    <string name="monthly">Semanal</string>
+    <string name="rememberpassword">Recordar contraseña</string>
+    <string name="enableautomaticlogin">Habilitar inicio de sesión automático</string>
+    <string name="changepassword">Cambia la contraseña</string>
+    <string name="clickhere">Haga clic aquí</string>
+    <string name="checkupdates">Buscar actualizaciones</string>
+    <string name="logout">Cerrar sesión</string>
 </resources>

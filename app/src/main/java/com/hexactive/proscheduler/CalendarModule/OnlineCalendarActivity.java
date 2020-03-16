@@ -1,5 +1,7 @@
 package com.hexactive.proscheduler.CalendarModule;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -24,7 +26,10 @@ Button microsoft,google;
             @Override
             public void onClick(View view) {
                 webView.setVisibility(View.VISIBLE);
-                webView.loadUrl("https://calendar.google.com/calendar/r");
+                String url = "https://calendar.google.com/calendar/r";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 
@@ -32,7 +37,10 @@ Button microsoft,google;
             @Override
             public void onClick(View view) {
                 webView.setVisibility(View.VISIBLE);
-                webView.loadUrl("https://office.live.com/start/Calendar.aspx?ui=en%2DUS&rs=US");
+                String url = "https://office.live.com/start/Calendar.aspx?ui=en%2DUS&rs=US";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 

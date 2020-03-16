@@ -5,7 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
@@ -35,6 +39,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class AddEditReminderActivity extends AppCompatActivity {
     EditText date_et,time_et;
@@ -50,7 +55,18 @@ public class AddEditReminderActivity extends AppCompatActivity {
     Calendar reminderNotification;
     FirebaseUser currentUser;
     ProgressDialog dialog;
+    private Locale locale;
+    String language;
     boolean FLAG=false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sp=getSharedPreferences("mycredentials", Context.MODE_PRIVATE);
+        language=sp.getString("langauge","en");
+        locale = new Locale(language);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +82,7 @@ public class AddEditReminderActivity extends AppCompatActivity {
         button=findViewById(R.id.submit_btn);
         update=findViewById(R.id.update_btn);
         reminderNotification=Calendar.getInstance();
-
+        notification="0";
         dialog = new ProgressDialog(new ContextThemeWrapper(AddEditReminderActivity.this, R.style.MyProgressDialog));
         final Intent intent=getIntent();
         String type=intent.getStringExtra("type");
@@ -182,9 +198,9 @@ public class AddEditReminderActivity extends AppCompatActivity {
                     myIntent.putExtra("uid",uid);
                     myIntent.putExtra("date",date);
                     myIntent.putExtra("time",time);
-                    myIntent.putExtra("notification",notification);
+                    myIntent.putExtra("noti",notification);
                     myIntent.putExtra("note",note);
-                    myIntent.putExtra("priority",priority);
+                    myIntent.putExtra("pri",priority);
                     myIntent.putExtra("rid",rid);
                     AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
                     PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
@@ -425,5 +441,14 @@ public class AddEditReminderActivity extends AppCompatActivity {
             }
 
         }
+    }
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        // refresh your views here
+        Locale.setDefault(locale);
+        config.locale = locale;
+        super.onConfigurationChanged(newConfig);
+
     }
 }
